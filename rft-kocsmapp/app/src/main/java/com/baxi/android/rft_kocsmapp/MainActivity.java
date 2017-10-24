@@ -1,5 +1,6 @@
 package com.baxi.android.rft_kocsmapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,22 +14,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showPubs(View view){
-        //TODO
+        Intent intent = new Intent(this, ShowPubsAcivity.class);
+        startActivity(intent);
     }
 
     public void showMap(View view){
-        //TODO
+        Intent intent = new Intent(this, ShowMapActivity.class);
+        startActivity(intent);
     }
 
     public void suggestOne(View view){
-        //TODO
+        Intent intent = new Intent(this, SuggestOneActivity.class);
+        startActivity(intent);
     }
 
     public void exitApp(View view){
-        //TODO
+        finish();
+        System.exit(0);
     }
 
     public void facebookLogin(View view){
-        //TODO
+        Intent intent = new Intent(this, FacebookLoginActivity.class);
+        startActivity(intent);
     }
 }
