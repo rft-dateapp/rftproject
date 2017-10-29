@@ -24,12 +24,15 @@
         <activity
             android:name=".FacebookLoginActivity"
             android:label="@string/title_activity_facebook_login"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".ShowPubsAcivity"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".ShowMapActivity"
-            android:parentActivityName=".MainActivity"/>
-        <activity android:name=".SuggestOneActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ShowPubsAcivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ShowMapActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".SuggestOneActivity"
             android:parentActivityName=".MainActivity"></activity>
     </application>
 

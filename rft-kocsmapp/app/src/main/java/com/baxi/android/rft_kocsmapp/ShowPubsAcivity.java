@@ -1,7 +1,7 @@
 package com.baxi.android.rft_kocsmapp;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 public class ShowPubsAcivity extends AppCompatActivity {
 
