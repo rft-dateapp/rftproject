@@ -1,0 +1,46 @@
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #C8E6C9;
+}
+
+nav {
+    background-color: #388E3C;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+    margin: 0;
+    width: 8em;
+    text-align: center;
+    font-size: 18px;
+    font-family: "Roboto", sans-serif; 
+}
+
+nav a:hover {
+    background-color: #FFC107;
+    color: #212121;
+}
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.clearfix {
+    clear: both;
+}
+
