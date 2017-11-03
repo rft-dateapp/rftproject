@@ -51,3 +51,20 @@ nav a:hover {
     clear: both;
 }
 
+.map-review-container {
+    margin: 80px;
+}
+
+.map {
+    width: 400px;
+    height: 600px;
+    background-color: red;
+    margin-right: 100px;
+}
+
+.review {
+    width: 400px;
+    height: 600px;
+    background-color: blue;
+    margin-left: 100px; 
+}
