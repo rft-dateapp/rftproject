@@ -12,6 +12,16 @@ html, body {
     height: 100%;
 }
 
+header > h1 {
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+}
+
+.center-img {  
+    display: block;
+    margin: 0 auto;
+}   
+
 nav {
     background-color: #388E3C;
     position: relative;
