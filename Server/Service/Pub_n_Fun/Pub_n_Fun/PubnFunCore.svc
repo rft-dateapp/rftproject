@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Pub_n_Fun.PubnFunCore" CodeBehind="PubnFunCore.svc.cs" %>
