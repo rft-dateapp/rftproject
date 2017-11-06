@@ -6,6 +6,8 @@
     <string name="button_suggest">Ajánlj egyet!</string>
     <string name="button_exit">Kilépés</string>
     <string name="title_activity_facebook_login">Sign in</string>
+    <string name="facebook_app_id">176279892948274</string>
+    <string name="fb_login_protocol_scheme">fb176279892948274</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
