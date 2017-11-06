@@ -15,22 +15,18 @@ function initMap() {
             };
             
             infoWindow.setPosition(pos);
-            infoWindow.setContent('Location found.');
-            infoWindow.open(map);
             map.setCenter(pos);
         }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
+            handleLocationError(true);
         });
     } else {
         // Browser doesn't support Geolocation
-        handleLocationError(false, infoWindow, map.getCenter());
+        handleLocationError(false);
     }
 }
 
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-    infoWindow.setPosition(pos);
-    infoWindow.setContent(browserHasGeolocation ?
+function handleLocationError(browserHasGeolocation) {
+    console.log(browserHasGeolocation ? 
         'Error: The Geolocation service failed.' :
         'Error: Your browser doesn\'t support geolocation.');
-        infoWindow.open(map);
     }
