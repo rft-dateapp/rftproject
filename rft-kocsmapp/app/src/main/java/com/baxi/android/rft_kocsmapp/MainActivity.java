@@ -53,16 +53,20 @@ public class MainActivity extends AppCompatActivity {
     public void showExitDialog(){
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.exit_dialog);
-        dialog.setTitle("Biztosan ki akarsz lépni?");
+        dialog.setTitle("");
 
         ImageView image = (ImageView) dialog.findViewById(R.id.image);
         image.setImageResource(R.drawable.ic_beer_spill);
+
+        TextView tv = (TextView) dialog.findViewById(R.id.exittext);
+        tv.setText("Biztosan ki akarsz lépni?");
 
         Button yesButton = (Button) dialog.findViewById(R.id.dialogButtonYes);
         yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+                System.exit(0);
             }
         });
 
