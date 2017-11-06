@@ -31,16 +31,19 @@
 
         <div class="map-review-container">
             <div class="review float-left">REVIEW GOES HERE</div>
-            <div class="map float-right">
-                    <iframe frameborder="0" src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJz2N7xdwNR0cRa7C8gsfrJoQ&key=AIzaSyBggezvccxtg5Xexrcwn6zY6d3Jh6qutbU"></iframe>
-            </div>
+            <div id="map" class="map float-right"></div>
             <div class="clearfix"></div>
         </div>
+
     </main>
 
     <footer>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>            
         <script src="assets/js/script.js"></script>
+        <script src="assets/js/geolocation.js"></script>
+        <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBT6brEL_t0LBxZaSUSvC06hyP1pgbJf_0&callback=initMap">
+        </script>
     </footer>
 </body>
 </html>

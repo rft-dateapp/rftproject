@@ -22,6 +22,7 @@ nav {
     position: relative;
     top: 0;
     width: 100%;
+    z-index: 100;
 }
 
 nav a {
@@ -75,19 +76,20 @@ iframe {
 }
 
 .map-review-container {
-    margin: 80px;
+    display: block;
+    margin: 3% 3% 0 3%;
+    height: 600px;
 }
 
-.map {
-    width: 400px;
-    height: 600px;
-    background-color: red;
-    margin-right: 100px;
+#map {
+    width: 60%;
+    height: inherit;
+    padding-right: 5%;
 }
 
 .review {
-    width: 400px;
-    height: 600px;
+    width: 35%;
+    height: inherit;
     background-color: blue;
-    margin-left: 100px; 
+    margin-right: 5%;
 }
