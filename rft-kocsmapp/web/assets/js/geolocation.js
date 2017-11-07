@@ -1,10 +1,10 @@
-var map, infoWindow;
+var map;
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: 47.5421887, lng: 21.6395724},
         zoom: 16
     });
-    infoWindow = new google.maps.InfoWindow;
+
     
     // Try HTML5 geolocation.
     if (navigator.geolocation) {
@@ -13,8 +13,7 @@ function initMap() {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
-            
-            infoWindow.setPosition(pos);
+
             map.setCenter(pos);
         }, function() {
             handleLocationError(true);
