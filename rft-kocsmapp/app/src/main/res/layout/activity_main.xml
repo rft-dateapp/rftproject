@@ -4,7 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryLight"
     tools:context="com.baxi.android.rft_kocsmapp.MainActivity">
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <Button
         android:id="@+id/button10"
@@ -15,6 +26,8 @@
         android:layout_marginTop="16dp"
         android:onClick="exitApp"
         android:text="@string/button_exit"
+        android:background="@drawable/button_click"
+        android:textColor="@color/colorText"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button9" />
@@ -28,6 +41,8 @@
         android:layout_marginTop="16dp"
         android:onClick="suggestOne"
         android:text="@string/button_suggest"
+        android:background="@drawable/button_click"
+        android:textColor="@color/colorText"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button6" />
@@ -41,6 +56,8 @@
         android:layout_marginTop="16dp"
         android:onClick="showMap"
         android:text="@string/button_map"
+        android:background="@drawable/button_click"
+        android:textColor="@color/colorText"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button7" />
@@ -54,18 +71,10 @@
         android:layout_marginTop="90dp"
         android:onClick="showPubs"
         android:text="@string/button_pubs"
+        android:background="@drawable/button_click"
+        android:textColor="@color/colorText"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button11"
-        android:layout_width="117dp"
-        android:layout_height="40dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:onClick="facebookLogin"
-        android:text="@string/button_login"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
