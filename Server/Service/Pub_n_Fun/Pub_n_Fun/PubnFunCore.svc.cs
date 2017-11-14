@@ -3,9 +3,6 @@ using Pub_n_Fun.Error;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.Text;
 using Pub_n_Fun.Models;
 
 namespace Pub_n_Fun
