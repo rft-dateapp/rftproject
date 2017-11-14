@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         showExitDialog();
     }
+
     public void showExitDialog(){
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.exit_dialog);
