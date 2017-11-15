@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryLight"
     tools:context="com.baxi.android.rft_kocsmapp.ShowPubsAcivity">
 
     <Button
@@ -12,8 +13,11 @@
         android:layout_height="50dp"
         android:layout_marginTop="18dp"
         android:text="Frissítés"
+        android:textColor="@color/colorText"
+        android:background="@drawable/button_click"
         app:layout_constraintTop_toBottomOf="@+id/tableLayout"
-        tools:layout_editor_absoluteX="245dp" />
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <TableLayout
         android:id="@+id/tableLayout"
