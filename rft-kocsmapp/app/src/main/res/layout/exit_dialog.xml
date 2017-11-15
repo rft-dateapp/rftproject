@@ -34,6 +34,8 @@
             android:text="Igen"
             android:layout_margin="5dp"
             android:layout_gravity="center|left"
+            android:textColor="@color/colorText"
+            android:background="@drawable/button_click"
             />
 
         <Button
@@ -42,7 +44,10 @@
             android:layout_height="wrap_content"
             android:text="Nem"
             android:layout_margin="5dp"
-            android:layout_gravity="center|right" />
+            android:layout_gravity="center|right"
+            android:textColor="@color/colorText"
+            android:background="@drawable/button_click" />
+
 
     </FrameLayout>
     
