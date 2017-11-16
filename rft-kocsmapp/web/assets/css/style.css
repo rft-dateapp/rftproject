@@ -12,6 +12,10 @@ html, body {
     height: 100%;
 }
 
+header {
+    background-color: #C8E6C9;
+}
+
 header > h1 {
     text-align: center;
     font-family: "Roboto", sans-serif;
@@ -19,15 +23,6 @@ header > h1 {
 
 nav {
     height: 50px;
-}
-
-.nav {
-    background-color: #388E3C;
-    position: relative;
-    top: 0;
-    width: 100%;
-    height: inherit;
-    z-index: 100;
 }
 
 nav a {
@@ -43,8 +38,22 @@ nav a {
 }
 
 nav a:hover {
+    text-decoration: none;
     background-color: #FFC107;
     color: #212121;
+}
+
+#login-button {
+    margin: 8px 1% 0 0;
+}
+
+.nav {
+    background-color: #388E3C;
+    position: relative;
+    top: 0;
+    width: 100%;
+    height: inherit;
+    z-index: 100;
 }
 
 iframe {
