@@ -5,23 +5,10 @@
     <string name="button_pubs">Kocsmák</string>
     <string name="button_suggest">Ajánlj egyet!</string>
     <string name="button_exit">Kilépés</string>
-    <string name="title_activity_facebook_login">Sign in</string>
     <string name="facebook_app_id">292632967892473</string>
     <string name="fb_login_protocol_scheme">fb292632967892473</string>
 
-    <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
-    <string name="title_activity_show_map">Map</string>
+    <string name="title_activity_show_map">Térkép</string>
 
     <string name="permission_rationale_location">Access to the location service is required to demonstrate the \'my location\' feature, which shows your current location on the map.</string>
     <string name="location_permission_denied">This sample requires location permission to enable the \'my location\' layer. Please try again and grant access to use the location.\nIf the permission has been permanently denied, it can be enabled from the System Settings &gt; Apps &gt; \'Google Maps API Demos\'.</string>
