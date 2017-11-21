@@ -3,6 +3,9 @@ package com.baxi.android.rft_kocsmapp;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
@@ -34,8 +37,11 @@ class RequestTask extends AsyncTask<String, String, String> {
         Response response = null;
         try {
             response = client.newCall(request).execute();
+            String jsonData = response.body().string();
+            JSONObject Jobject = new JSONObject(jsonData);
+
             return response.body().string();
-        } catch (IOException e) {
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
 
