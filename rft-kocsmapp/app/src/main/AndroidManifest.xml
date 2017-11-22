@@ -53,12 +53,6 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".MapsActivityCurrentPlace"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.baxi.android.rft_kocsmapp.MainActivity" />
-        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

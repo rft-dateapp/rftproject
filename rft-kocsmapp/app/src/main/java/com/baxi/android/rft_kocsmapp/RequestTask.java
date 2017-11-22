@@ -37,11 +37,8 @@ class RequestTask extends AsyncTask<String, String, String> {
         Response response = null;
         try {
             response = client.newCall(request).execute();
-            String jsonData = response.body().string();
-            JSONObject Jobject = new JSONObject(jsonData);
-
             return response.body().string();
-        } catch (IOException | JSONException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

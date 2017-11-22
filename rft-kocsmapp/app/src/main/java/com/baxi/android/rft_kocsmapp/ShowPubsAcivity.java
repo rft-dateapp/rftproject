@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 import okhttp3.OkHttpClient;
@@ -17,8 +21,6 @@ public class ShowPubsAcivity extends AppCompatActivity implements AsyncResponse{
     private TextView testTextField;
 
     private RequestTask task;
-
-    private String toShow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +34,6 @@ public class ShowPubsAcivity extends AppCompatActivity implements AsyncResponse{
         if(isNetworkConnected()){
             task.execute("http://pubnfun.azurewebsites.net/PubnFunCore.svc/GetAllPub");
         }
-
-        testTextField.setText(toShow);
-
 
     }
 
@@ -50,7 +49,23 @@ public class ShowPubsAcivity extends AppCompatActivity implements AsyncResponse{
 
     @Override
     public void processFinish(String output) {
-        this.toShow = output;
+        String toShow = "";
+        try {
+            JSONArray Jarray = new JSONArray(output);
+            for(int i = 0; i < Jarray.length(); i++){
+                if(Jarray.get(i).toString() != "null"){
+                    JSONObject object = Jarray.getJSONObject(i);
+                    toShow += object.get("Name");
+                    toShow += "    ";
+                    toShow += object.get("Address");
+                    toShow += '\n';
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         this.testTextField.setText(toShow);
     }
+    
 }
