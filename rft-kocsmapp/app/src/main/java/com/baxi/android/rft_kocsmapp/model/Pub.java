@@ -2,13 +2,14 @@ package com.baxi.android.rft_kocsmapp.model;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by rendgazd on 2017. 11. 21..
  */
 
-public class Pub {
+public class Pub implements Serializable{
 
     private String name;
 
@@ -72,5 +73,13 @@ public class Pub {
 
     public void setPosition(LatLng position) {
         this.position = position;
+    }
+
+    @Override
+    public String toString() {
+        return "Pub{" +
+                "name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                '}';
     }
 }

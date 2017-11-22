@@ -1,10 +1,12 @@
 package com.baxi.android.rft_kocsmapp.model;
 
+import java.io.Serializable;
+
 /**
  * Created by rendgazd on 2017. 11. 21..
  */
 
-public class CustomerOpinion {
+public class CustomerOpinion implements Serializable{
 
     private String opinion;
 
