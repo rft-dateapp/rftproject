@@ -1,11 +1,20 @@
-var app = angular.module('pubNFun', ['ezfb'])
+var app = angular.module('pubNFun', ['ezfb', 'ngRoute'])
 
-.config(function (ezfbProvider) {
+.config(function (ezfbProvider, $routeProvider, $locationProvider) {
     ezfbProvider.setInitParams({
         appId: '292632967892473'
     });
-})
 
+    $routeProvider
+      .when("/home", {
+        templateUrl: "Templates/home.html",
+        controller: "homeController"
+      })
+      .when("/pubs", {
+        templateUrl: "Templates/pubs.html",
+        controller: "pubsController"
+      })
+})
 .controller('MainCtrl', function($scope, ezfb, $window, $location) {
     
     updateLoginStatus(updateApiMe);
@@ -52,5 +61,11 @@ var app = angular.module('pubNFun', ['ezfb'])
       });
     }
   
+
+})
+.controller("homeController", function($scope){
+
+})
+.controller("pubsController", function($scope){
 
 });
