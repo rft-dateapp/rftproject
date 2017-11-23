@@ -1,21 +1,22 @@
 var app = angular.module('pubNFun', ['ezfb', 'ngRoute'])
 
-.config(function (ezfbProvider, $routeProvider, $locationProvider) {
+.config(function (ezfbProvider, $routeProvider) {
     ezfbProvider.setInitParams({
         appId: '292632967892473'
     });
 
     $routeProvider
-      .when("/home", {
-        templateUrl: "Templates/home.html",
+      .when("#/home", {
+        templateUrl: "/templates/home.html",
         controller: "homeController"
       })
-      .when("/pubs", {
-        templateUrl: "Templates/pubs.html",
+      .when("#/pubs", {
+        templateUrl: "/templates/pubs.html",
         controller: "pubsController"
       })
+      // $locationProvider.html5Mode(true);
 })
-.controller('MainCtrl', function($scope, ezfb, $window, $location) {
+.controller('MainCtrl', function($scope, ezfb) {
     
     updateLoginStatus(updateApiMe);
     
@@ -33,6 +34,16 @@ var app = angular.module('pubNFun', ['ezfb', 'ngRoute'])
             }
         }, {scope: 'email,user_likes'});
     }
+
+    $scope.logout = function () {
+      /**
+       * Calling FB.logout
+       * https://developers.facebook.com/docs/reference/javascript/FB.logout
+       */
+      ezfb.logout(function () {
+        updateLoginStatus(updateApiMe);
+      });
+    };
 
     var autoToJSON  = ['loginStatus', 'apiMe']; 
     angular.forEach(autoToJSON, function (varName) {

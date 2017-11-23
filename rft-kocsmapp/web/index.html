@@ -10,6 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
     <script src="https://pc035860.github.io/angular-easyfb/angular-easyfb.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+<!--    <base href="/home/collion/Documents/rft-project/rftproject/rft-kocsmapp/web/index.html/"> -->
 </head>
 
 <body ng-controller="MainCtrl">
@@ -21,8 +22,9 @@
         <div class="nav">
             <a href="#/home" class="float-left">Főoldal</a>
             <a href="#/pubs" class="float-left">Kocsmák</a>
-            <a href="#/" class="float-left">Ajánlj 1-et</a>
-            <button id="login-button" class="btn btn-primary float-right" ng-click="login()" ng-disabled="loginStatus.status == 'connected'">Connect with Facebook</button>             
+            <a href="#" class="float-left">Ajánlj 1-et</a>
+            <button id="login-button" class="btn btn-primary float-right" ng-click="login()" ng-hide="loginStatus.status == 'connected'">Connect with Facebook</button>             
+            <button id="logout-button" class="btn btn-danger float-right" ng-click="logout()" ng-hide="!loginStatus || loginStatus.status != 'connected'">Logout</button>
             <div class="clearfix"></div>
         </div>
     </nav>
@@ -31,6 +33,7 @@
         
         <div class="home">
             HOME GOES HERE
+            <div ng-view></div>
         </div>
         
         
