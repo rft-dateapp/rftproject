@@ -1,11 +1,19 @@
 package com.baxi.android.rft_kocsmapp;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baxi.android.rft_kocsmapp.model.Pub;
 
@@ -25,11 +33,13 @@ import java.util.List;
 
 public class ShowPubsAcivity extends AppCompatActivity implements AsyncResponse{
 
-    private TextView testTextField;
-
     private RequestTask task;
 
     private List<Pub> publist;
+
+    private ListView pubListView;
+
+    private ArrayAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,25 +50,34 @@ public class ShowPubsAcivity extends AppCompatActivity implements AsyncResponse{
 
         this.publist = new ArrayList<Pub>();
 
-        this.testTextField = (TextView) findViewById(R.id.testTextView);
+        this.pubListView = (ListView) findViewById(R.id.pubList);
 
         if(isNetworkConnected()){
             task.execute("http://pubnfun.azurewebsites.net/PubnFunCore.svc/GetAllPub");
         }
         else{
             this.publist = readList();
-            String toShow = "";
-            for(Pub pub : publist){
-                toShow += pub;
-                toShow += '\n';
-            }
-            this.testTextField.setText(toShow);
         }
+
+        showPubs();
 
     }
 
     public void showPubs(){
-
+        this.adapter = new CustomArrayAdapter(ShowPubsAcivity.this, publist);
+        pubListView.setAdapter(adapter);
+        pubListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Toast.makeText(getApplicationContext(),
+                        "Click ListItem Number " + position, Toast.LENGTH_LONG)
+                        .show();
+                Pub pubToHandle = publist.get(position);
+                System.out.println(pubToHandle);
+                showPubDetailsDialog(pubToHandle);
+            }
+        });
     }
 
     private boolean isNetworkConnected() {
@@ -89,17 +108,10 @@ public class ShowPubsAcivity extends AppCompatActivity implements AsyncResponse{
                     publist.add(pub);
                 }
             }
+            showPubs();
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        String toShow = "";
-        for(Pub pub : publist){
-            toShow += pub;
-            toShow += '\n';
-        }
-
-        this.testTextField.setText(toShow);
 
     }
 
@@ -139,5 +151,41 @@ public class ShowPubsAcivity extends AppCompatActivity implements AsyncResponse{
         saveList(publist);
     }
 
+
+    public void showPubDetailsDialog(Pub pub){
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.pub_details_dialog);
+        dialog.setTitle("Részletek");
+
+        TextView nameTextView = (TextView) dialog.findViewById(R.id.nameTextView);
+        nameTextView.setText(pub.getName());
+
+        TextView addressTextView = (TextView) dialog.findViewById(R.id.addressTextView);
+        addressTextView.setText(pub.getAddress());
+
+        TextView ratingTextView = (TextView) dialog.findViewById(R.id.ratingTextView);
+        ratingTextView.setText("Értékelés: " + Double.toString(pub.getCustomerOverallRatings()));
+
+        Button rateButton = (Button) dialog.findViewById(R.id.ratingButton);
+        rateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),
+                        "Rate button clicked", Toast.LENGTH_LONG)
+                        .show();
+            }
+        });
+
+        Button backButton = (Button) dialog.findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+    }
 
 }
