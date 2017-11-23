@@ -34,35 +34,39 @@
             
             
             <div class="map-review-container">
-                <div id="review" class="review float-left">REVIEW GOES HERE</div>
+                <div class="review float-left"> </div>
                 <div id="map" class="map float-right"></div>
                 <div class="clearfix"></div>
             </div>
             
-
+            
             
         </main>
         
         <footer>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>            
             <script>
-                    $(document).ready(function(){
-                        $.ajax({
-                            type: 'GET',
-                            url: 'http://pubnfun.azurewebsites.net/PubnFunCore.svc//GetAllPub',
-                            dataType: 'json',
-                            success: function(data){
-                                console.log('success', data);
+                $(document).ready(function(){
+                    $.ajax({
+                        type: 'GET',
+                        url: 'http://pubnfun.azurewebsites.net/PubnFunCore.svc//GetAllPub',
+                        dataType: 'json',
+                        success: function(data){
+                            for(var i = 0; i < data.length; i++){
+                                if(data[i] != null){
+                                    $('.review').append('<div>' + data[i].Name + '</div>');
+                                }
                             }
-                        });       
+                        }
                     });
+                        });
+                    </script>
+                    <script src="assets/js/nav.js"></script>
+                    <script src="assets/js/geolocation.js"></script>
+                    <script src="assets/js/app.js"></script>
+                    <script async defer
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBT6brEL_t0LBxZaSUSvC06hyP1pgbJf_0&callback=initMap">
                 </script>
-            <script src="assets/js/nav.js"></script>
-            <script src="assets/js/geolocation.js"></script>
-            <script src="assets/js/app.js"></script>
-            <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBT6brEL_t0LBxZaSUSvC06hyP1pgbJf_0&callback=initMap">
-        </script>
-    </footer>
-</body>
-</html>
+            </footer>
+        </body>
+        </html>
