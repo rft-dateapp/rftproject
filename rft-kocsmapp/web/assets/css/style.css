@@ -110,4 +110,12 @@ iframe {
     width: 35%;
     height: inherit;
     margin-right: 5%;
+    background-color: white;
+}
+
+.pub {
+    height: 40px;
+    padding: 10px 0 0 10px;
+    border: 1px solid black;
+    display: block;
 }
