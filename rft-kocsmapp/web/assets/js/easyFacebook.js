@@ -65,9 +65,3 @@ var app = angular.module('easyFacebook', ['ezfb'])
   
 
 });
-// .controller("homeController", function($scope){
-
-// })
-// .controller("pubsController", function($scope){
-
-// });
