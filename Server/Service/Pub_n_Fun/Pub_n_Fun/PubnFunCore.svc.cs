@@ -14,7 +14,46 @@ namespace Pub_n_Fun
     public class PubnFunCore : IPubnFunCore
     {
         private static List<Models.Pub> Pubs = new List<Models.Pub>();
-        private static List<EDM.Pub> awe = new List<EDM.Pub>();
+        private static List<EDM.Pub> awe = new List<EDM.Pub>()
+                        {
+                            new EDM.Pub()
+                            {
+                                pubID = 1,
+                                address = "Debrecen, Zákány utca 26.",
+                                name = "Campus Hotel és Kollégium",
+                                customerOpinions = new List<customerOpinion>()
+                                {
+                                    new customerOpinion()
+                                    {
+                                            opinion = "nincs meleg viz, szar a net, cuck fampus",
+                                            rating = 1,
+                                    },
+                                    new customerOpinion()
+                                    {
+                                            opinion = "uuuuhhhh pull the trigger! Aint nobody gona do it for you.",
+                                            rating = 5,
+                                    },
+                                },
+                                latitude = (float)47.545093,
+                                longitude = (float)21.640869,
+                            },
+                            new EDM.Pub()
+                            {
+                                pubID = 2,
+                                address = "isten háta mögöttön is túl",
+                                name = "kurtafarkú malac kcosmája",
+                                latitude = 0,
+                                longitude = 0,
+                            },
+                            new EDM.Pub()
+                            {
+                                pubID = 3,
+                                address = "szomszéd",
+                                name = "szomszéd",
+                                latitude = 100,
+                                longitude = 100,
+                            },
+                        };
 
         public void AddOpinion(customerOpinion OpinionToBeAdded)
         {
@@ -110,6 +149,7 @@ namespace Pub_n_Fun
 
         public List<EDM.Pub> GetAllPubList()
         {
+            /*
             try
             {
                 // not working , does not really acces any data in the db
@@ -123,6 +163,8 @@ namespace Pub_n_Fun
 
                 throw e;
             }
+            */
+            return awe;
         }
 
         public customerOpinion GetCustomerOpinion(string opinionID)
