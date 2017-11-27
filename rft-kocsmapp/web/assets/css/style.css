@@ -37,12 +37,17 @@ nav a {
     font-family: "Roboto", sans-serif; 
 }
 
-nav a:focus, nav a:hover {
+nav a:focus {
+    text-decoration: none;
+    background-color: #FF0000;
+    color: #212121;
+}
+
+nav a:hover {
     text-decoration: none;
     background-color: #FFC107;
     color: #212121;
 }
-
 
 iframe {
     border: 0;
@@ -93,7 +98,6 @@ iframe {
     width: 80%;
     height: 1000px;
     margin: 60px auto;
-    background-color: yellow;
 }
 
 .map-review-container {
