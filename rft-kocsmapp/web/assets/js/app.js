@@ -9,6 +9,9 @@ var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
         templateUrl: "assets/templates/pages/pubs/index.html",
         controller: "pubsController"
       })
+      .otherwise({
+          templateUrl: "assets/templates/pages/home/index.html"
+      })
 })
 
 
