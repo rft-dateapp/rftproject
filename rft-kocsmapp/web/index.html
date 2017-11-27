@@ -38,7 +38,7 @@
         
         
         <div class="map-review-container">
-            <div class="review float-left"> </div>
+            <div class="review float-left"></div>
             <div id="map" class="map float-right"></div>
             <div class="clearfix"></div>
         </div>
@@ -58,7 +58,7 @@
                     success: function(data){
                         for(var i = 0; i < data.length; i++){
                             if(data[i] != null){
-                                $('.review').append('<div class="pub">' + data[i].Name + '</div>');
+                                $('.review').append('<div class="pub">' + data[i].name + '</div>');
                             }
                         }
                     }

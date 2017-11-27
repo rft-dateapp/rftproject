@@ -1,12 +1,12 @@
 var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
 .config(function($routeProvider, $locationProvider){
       $routeProvider
-      .when("#/home", {
-        templateUrl: "templates/home.html",
+      .when("/home", {
+        templateUrl: "assets/templates/home.html",
         controller: "homeController"
       })
-      .when("#/pubs", {
-        templateUrl: "templates/pubs.html",
+      .when("/pubs", {
+        templateUrl: "assets/templates/pubs.html",
         controller: "pubsController"
       })
 })
