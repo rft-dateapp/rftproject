@@ -99,18 +99,21 @@ iframe {
     display: block;
     margin: 3% 3% 3% 3%;
     height: 600px;
+    width: inherit;
 }
 
-#map {
+#google-map {
     width: 60%;
     height: inherit;
-    padding-right: 5%;
+}
+
+.ng-scope {
+    padding: 0;
 }
 
 .review {
     width: 35%;
     height: inherit;
-    margin-right: 5%;
     background-color: white;
 }
 
