@@ -21,7 +21,7 @@ nav {
     height: 50px;
 }
 
-nav a {
+.nav a {
     text-decoration: none;
     color: white;
     padding: 10px;
@@ -33,13 +33,7 @@ nav a {
     font-family: "Roboto", sans-serif; 
 }
 
-nav a:focus {
-    text-decoration: none;
-    background-color: #FF0000;
-    color: #212121;
-}
-
-nav a:hover {
+.nav a:hover {
     text-decoration: none;
     background-color: #FFC107;
     color: #212121;
