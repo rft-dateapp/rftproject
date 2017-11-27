@@ -21,7 +21,7 @@
             android:src="@mipmap/ic_launcher" />
 
         <TextView
-            android:id="@+id/addressTextView"
+            android:id="@+id/opinionTextView"
             android:layout_width="fill_parent"
             android:layout_height="26dip"
             android:layout_alignParentBottom="true"
@@ -30,10 +30,10 @@
             android:textSize="14dp" />
 
         <TextView
-            android:id="@+id/nameTextView"
+            android:id="@+id/customerNameTextView"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/addressTextView"
+            android:layout_above="@id/opinionTextView"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_alignWithParentIfMissing="true"
@@ -42,6 +42,17 @@
             android:textSize="14dp" />
 
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/showOnMapButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mutasd a térképen"
+        android:layout_margin="5dp"
+        android:layout_gravity="center|right"
+        android:textColor="@color/colorText"
+        android:background="@drawable/button_click" />
+
     <TextView
         android:id="@+id/ratingTextView"
         android:layout_width="wrap_content"
@@ -50,17 +61,15 @@
         android:textSize="12dp"
         android:layout_marginLeft="16dp"/>
 
-
+    <ListView
+        android:id="@+id/opinionListView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
-
-        <ListView
-            android:id="@+id/opinionListView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/ratingButton"

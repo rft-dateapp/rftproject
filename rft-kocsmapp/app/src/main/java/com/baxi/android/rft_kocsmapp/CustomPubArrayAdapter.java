@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.baxi.android.rft_kocsmapp.model.Pub;
@@ -15,12 +16,12 @@ import java.util.List;
  * Created by rendgazd on 2017. 11. 23..
  */
 
-public class CustomArrayAdapter extends ArrayAdapter<Pub> {
+public class CustomPubArrayAdapter extends ArrayAdapter<Pub> {
 
     private final Context context;
     private final List<Pub> values;
 
-    public CustomArrayAdapter(Context context, List<Pub> values) {
+    public CustomPubArrayAdapter(Context context, List<Pub> values) {
         super(context, -1, values);
         this.context = context;
         this.values = values;
@@ -31,9 +32,11 @@ public class CustomArrayAdapter extends ArrayAdapter<Pub> {
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.custom_list_row, parent, false);
-        TextView firstLine = (TextView) rowView.findViewById(R.id.nameTextView);
-        TextView secondLine = (TextView) rowView.findViewById(R.id.addressTextView);
+        ImageView imageView = (ImageView) rowView.findViewById(R.id.row_icon);
+        TextView firstLine = (TextView) rowView.findViewById(R.id.customerNameTextView);
+        TextView secondLine = (TextView) rowView.findViewById(R.id.opinionTextView);
 
+        imageView.setImageResource(R.mipmap.ic_launcher);
         firstLine.setText(values.get(position).getName());
         secondLine.setText("Átlagos felhasználói értékelés: " + Double.toString(values.get(position).getCustomerOverallRatings()));
 

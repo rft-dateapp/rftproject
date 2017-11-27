@@ -1,4 +1,4 @@
-package com.baxi.android.rft_kocsmapp;
+package com.baxi.android.rft_kocsmapp.util;
 
 /*
  * Copyright (C) 2015 The Android Open Source Project
@@ -25,6 +25,8 @@ package com.baxi.android.rft_kocsmapp;
     import android.support.v4.app.DialogFragment;
     import android.support.v7.app.AppCompatActivity;
     import android.widget.Toast;
+
+    import com.baxi.android.rft_kocsmapp.R;
 
 /**
  * Utility class for access to runtime permissions.

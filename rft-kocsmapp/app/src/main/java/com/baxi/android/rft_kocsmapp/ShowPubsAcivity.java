@@ -10,12 +10,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baxi.android.rft_kocsmapp.model.CustomerOpinion;
 import com.baxi.android.rft_kocsmapp.model.Pub;
+import com.baxi.android.rft_kocsmapp.util.JSONUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,7 +40,8 @@ public class ShowPubsAcivity extends AppCompatActivity implements AsyncResponse{
 
     private ListView pubListView;
 
-    private ArrayAdapter adapter;
+    private ArrayAdapter pubAdapter;
+    private ArrayAdapter opinionAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +66,8 @@ public class ShowPubsAcivity extends AppCompatActivity implements AsyncResponse{
     }
 
     public void showPubs(){
-        this.adapter = new CustomArrayAdapter(ShowPubsAcivity.this, publist);
-        pubListView.setAdapter(adapter);
+        this.pubAdapter = new CustomPubArrayAdapter(ShowPubsAcivity.this, publist);
+        pubListView.setAdapter(pubAdapter);
         pubListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -80,6 +82,7 @@ public class ShowPubsAcivity extends AppCompatActivity implements AsyncResponse{
         });
     }
 
+
     private boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -93,18 +96,7 @@ public class ShowPubsAcivity extends AppCompatActivity implements AsyncResponse{
             for(int i = 0; i < Jarray.length(); i++){
                 if(Jarray.get(i).toString() != "null"){
                     JSONObject object = Jarray.getJSONObject(i);
-                    Pub pub = new Pub();
-
-                    String name = object.getString("Name");
-                    double customerOverallRating = object.getDouble("CustomerOverallRatings");
-                    int pubID = object.getInt("PubID");
-                    String address = object.getString("Address");
-
-                    pub.setAddress(address);
-                    pub.setName(name);
-                    pub.setCustomerOverallRatings(customerOverallRating);
-                    pub.setPubID(pubID);
-
+                    Pub pub = JSONUtils.createPubFromJson(object);
                     publist.add(pub);
                 }
             }
@@ -157,10 +149,27 @@ public class ShowPubsAcivity extends AppCompatActivity implements AsyncResponse{
         dialog.setContentView(R.layout.pub_details_dialog);
         dialog.setTitle("Részletek");
 
-        TextView nameTextView = (TextView) dialog.findViewById(R.id.nameTextView);
+        final List<CustomerOpinion> opinions = pub.getCustomerCustomerOpinions();
+        this.opinionAdapter = new CustomOpinionArrayAdapter(ShowPubsAcivity.this, opinions);
+
+        ListView opinionListView = (ListView) dialog.findViewById(R.id.opinionListView);
+        opinionListView.setAdapter(opinionAdapter);
+        opinionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Toast.makeText(getApplicationContext(),
+                        "Click ListItem Number " + position, Toast.LENGTH_LONG)
+                        .show();
+                CustomerOpinion opinionToHandle = opinions.get(position);
+                System.out.println(opinionToHandle);
+            }
+        });
+
+        TextView nameTextView = (TextView) dialog.findViewById(R.id.customerNameTextView);
         nameTextView.setText(pub.getName());
 
-        TextView addressTextView = (TextView) dialog.findViewById(R.id.addressTextView);
+        TextView addressTextView = (TextView) dialog.findViewById(R.id.opinionTextView);
         addressTextView.setText(pub.getAddress());
 
         TextView ratingTextView = (TextView) dialog.findViewById(R.id.ratingTextView);
