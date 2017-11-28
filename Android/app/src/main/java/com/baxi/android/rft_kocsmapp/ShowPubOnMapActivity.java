@@ -2,9 +2,9 @@ package com.baxi.android.rft_kocsmapp;
 
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
@@ -15,8 +15,13 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-public class ShowMapActivity extends AppCompatActivity implements GoogleMap.OnMyLocationButtonClickListener,
+/**
+ * Created by rendgazd on 2017. 11. 28..
+ */
+
+public class ShowPubOnMapActivity extends AppCompatActivity implements GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnMyLocationClickListener,
         OnMapReadyCallback,
         ActivityCompat.OnRequestPermissionsResultCallback{
@@ -27,12 +32,23 @@ public class ShowMapActivity extends AppCompatActivity implements GoogleMap.OnMy
 
     private boolean mPermissionDenied = false;
 
-    private LatLng defaultLocation = new LatLng(47.532267, 21.627415);
+    private double pubLatitude;
+    private double pubLongitude;
+    private String pubName;
+
+    private LatLng locationToShow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_map);
+
+        pubLatitude = getIntent().getExtras().getDouble("pubLatitude");
+        pubLongitude = getIntent().getExtras().getDouble("pubLongitude");
+        pubName = getIntent().getExtras().getString("pubName");
+
+        locationToShow = new LatLng(pubLatitude, pubLongitude);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -46,7 +62,8 @@ public class ShowMapActivity extends AppCompatActivity implements GoogleMap.OnMy
         mMap.setOnMyLocationButtonClickListener(this);
         mMap.setOnMyLocationClickListener(this);
         enableMyLocation();
-        mMap.moveCamera( CameraUpdateFactory.newLatLngZoom(defaultLocation , 10.0f) );
+        googleMap.addMarker(new MarkerOptions().position(locationToShow).title(pubName));
+        mMap.moveCamera( CameraUpdateFactory.newLatLngZoom(locationToShow , 18.0f) );
     }
 
     @Override

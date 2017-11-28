@@ -29,6 +29,8 @@ public class JSONUtils {
             int pubID = object.getInt("pubID");
             String address = object.getString("address");
             JSONArray array = object.getJSONArray("customerOpinions");
+            double latitude = object.getDouble("latitude");
+            double longitude = object.getDouble("longitude");
 
             List<CustomerOpinion> opinions = getOpinions(array);
 
@@ -37,6 +39,8 @@ public class JSONUtils {
             pub.setCustomerOverallRatings(customerOverallRating);
             pub.setPubID(pubID);
             pub.setCustomerCustomerOpinions(opinions);
+            pub.setLatitude(latitude);
+            pub.setLongitude(longitude);
 
         } catch (JSONException e) {
             e.printStackTrace();
