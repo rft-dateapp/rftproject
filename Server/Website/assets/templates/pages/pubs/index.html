@@ -1,5 +1,11 @@
 <div class="map-review-container">
-    <div class="review float-left"> </div>
+    <div class="review float-left">
+        <div class="pub" ng-repeat="pub in pubs"><button ng-click="setActiveId(pub.pubID)">{{ pub.name }}</button>
+            <div ng-if="isActive(pub.pubID)"> 
+                <div ng-repeat="opinion in pub.customerOpinions">{{ opinion.opinion }}</div>
+            </div>
+        </div>
+    </div>
     <div id="google-map" class="map float-right"></div>
     <div class="clearfix"></div>
 </div>

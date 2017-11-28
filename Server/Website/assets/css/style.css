@@ -117,7 +117,7 @@ iframe {
 }
 
 .pub {
-    height: 40px;
+    min-height: 40px;
     padding: 10px 0 0 10px;
     border: 1px solid black;
     display: block;
