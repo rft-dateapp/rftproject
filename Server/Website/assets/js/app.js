@@ -14,21 +14,47 @@ var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
     })
 })
 
+.service("pubService", function($http){
+    this.getPubs = function(){
+        return $http.get('http://pubnfun.azurewebsites.net/PubnFunCore.svc//GetAllPub');
+        
+    };
+})
+
 
 .controller("homeController", function($scope){
 })
-.controller("pubsController", function($scope, $http){
-    
-    $http.get('http://pubnfun.azurewebsites.net/PubnFunCore.svc//GetAllPub')
-    .then(function(data){
-        for(var i = 0; i < data.length; i++){
-            if(data[i] != null){
-                $('.review').append('<div class="pub">' + data[i].name + '</div>');
-            }
+.controller("pubsController", ['$scope','pubService', function($scope, pubService){
+    $scope.active = 0;
+
+    $scope.setActiveId = function(idToSet){
+        if($scope.active === idToSet){
+            $scope.active = 0;
         }
+        else{
+            $scope.active = idToSet;
+        }
+        console.log($scope.active);
+    };
+
+    $scope.isActive = function(id){
+        return $scope.active === id;
+    };
+
+    
+    
+    console.log(pubService);
+    $scope.pubs = [];
+
+    pubService.getPubs().then(function(data){
+        $scope.pubs = data.data;
+
+        console.log(data);
     });
-    
-    
+
+    console.log($scope.pubs);
+
+
     $scope.initMap = function() {
         var map = new google.maps.Map(document.getElementById('google-map'), {
             center: {lat: 47.5421887, lng: 21.6395724},
@@ -45,21 +71,19 @@ var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
                 
                 map.setCenter(pos);
             }, function() {
-                handleLocationError(true);
+                $scope.handleLocationError(true);
             });
         } else {
             // Browser doesn't support Geolocation
-            handleLocationError(false);
+            $scope.handleLocationError(false);
         }
     }
     
-    function handleLocationError(browserHasGeolocation) {
+    $scope.handleLocationError = function(browserHasGeolocation) {
         console.log(browserHasGeolocation ? 
             'Error: The Geolocation service failed.' :
             'Error: Your browser doesn\'t support geolocation.');
         }
         
-        
         $scope.initMap();
-        
-    });
+    }]);
