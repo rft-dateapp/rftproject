@@ -43,14 +43,13 @@
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -70,6 +69,16 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="EDM\RftKocsmaAppDBEDM.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RftKocsmaAppDBEDM.edmx</DependentUpon>
+      <LastGenOutput>RftKocsmaAppDBEDM.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EDM\RftKocsmaAppDBEDM.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RftKocsmaAppDBEDM.edmx</DependentUpon>
+      <LastGenOutput>RftKocsmaAppDBEDM.cs</LastGenOutput>
+    </Content>
     <Content Include="PubnFunCore.svc" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -77,6 +86,30 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cache\CacheManager.cs" />
+    <Compile Include="EDM\customerOpinions.cs">
+      <DependentUpon>RftKocsmaAppDBEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\customers.cs">
+      <DependentUpon>RftKocsmaAppDBEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\Pubs.cs">
+      <DependentUpon>RftKocsmaAppDBEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\RftKocsmaAppDBEDM.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RftKocsmaAppDBEDM.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\RftKocsmaAppDBEDM.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RftKocsmaAppDBEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\RftKocsmaAppDBEDM.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RftKocsmaAppDBEDM.edmx</DependentUpon>
+    </Compile>
     <Compile Include="EM\EntityManager.cs" />
     <Compile Include="Error\InvalidTokenException.cs" />
     <Compile Include="IPubnFunCore.cs" />
@@ -89,9 +122,14 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <EntityDeploy Include="EDM\RftKocsmaAppDBEDM.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>RftKocsmaAppDBEDM.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="EDM\RftKocsmaAppDBEDM.edmx.diagram">
+      <DependentUpon>RftKocsmaAppDBEDM.edmx</DependentUpon>
+    </Content>
+    <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\PubnFun - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -99,6 +137,9 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

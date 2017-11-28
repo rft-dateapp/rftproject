@@ -3,19 +3,68 @@ using Pub_n_Fun.Error;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.ServiceModel;
+using System.Text;
 using Pub_n_Fun.Models;
+using Pub_n_Fun.EDM;
 
 namespace Pub_n_Fun
 {
     public class PubnFunCore : IPubnFunCore
     {
-        private static List<Pub> Pubs = new List<Pub>();
+        private static List<Models.Pub> Pubs = new List<Models.Pub>();
+        private static List<EDM.Pubs> awe = new List<EDM.Pubs>()
+                        {
+                            new EDM.Pubs()
+                            {
+                                pubID = 1,
+                                address = "Debrecen, Zákány utca 26.",
+                                name = "Campus Hotel és Kollégium",
+                                customerOpinions = new List<customerOpinions>()
+                                {
+                                    new customerOpinions()
+                                    {
+                                            opinion = "nincs meleg viz, szar a net, cuck fampus",
+                                            rating = 1,
+                                            pubID = 1,
+                                    },
+                                    new customerOpinions()
+                                    {
+                                            opinion = "uuuuhhhh pull the trigger! Aint nobody gona do it for you.",
+                                            rating = 5,
+                                            pubID = 1,
+                                    },
+                                },
+                                latitude = (float)47.545093,
+                                longitude = (float)21.640869,
+                            },
+                            new EDM.Pubs()
+                            {
+                                pubID = 2,
+                                address = "isten háta mögöttön is túl",
+                                name = "kurtafarkú malac kcosmája",
+                                latitude = 0,
+                                longitude = 0,
+                            },
+                            new EDM.Pubs()
+                            {
+                                pubID = 3,
+                                address = "szomszéd",
+                                name = "szomszéd",
+                                latitude = 100,
+                                longitude = 100,
+                            },
+                        };
 
-        public void AddOpinion(CustomerOpinion OpinionToBeAdded)
+        public void AddOpinion(customerOpinions OpinionToBeAdded)
         {
             try
             {
-                Pubs.Find(p => p.PubID == OpinionToBeAdded.PubID).CustomerOpinions.Add(OpinionToBeAdded);
+                using (var db = new RftKocsmaAppDBEntities())
+                {
+                    db.customerOpinions.Add(OpinionToBeAdded);
+                }
             }
             catch (Exception e)
             {
@@ -24,11 +73,18 @@ namespace Pub_n_Fun
             }
         }
 
-        public void AddPub(Pub PubToBeAdded)
+        public void AddPub(EDM.Pubs PubToBeAdded)
         {
             try
             {
-                Pubs.Add(PubToBeAdded);
+                //Pubs.Add(PubToBeAdded);
+
+                using (var db = new EDM.RftKocsmaAppDBEntities())
+                {
+                    db.Pubs.Add(PubToBeAdded);
+
+                    db.SaveChanges();
+                }
             }
             catch(Exception e)
             {
@@ -40,12 +96,10 @@ namespace Pub_n_Fun
         {
             try
             {
-                int tmp;
-                int.TryParse(opinionID, out tmp);
-
-                foreach(Pub pub in Pubs)
+                using (var db = new RftKocsmaAppDBEntities())
                 {
-                    pub.CustomerOpinions.Remove(pub.CustomerOpinions.Find(p => p.CustomerOpinionID == tmp));
+                    db.customerOpinions.Remove(db.customerOpinions.Find(opinionID));
+                    db.SaveChanges();
                 }
             }
             catch (Exception e)
@@ -59,55 +113,34 @@ namespace Pub_n_Fun
         {
             try
             {
-                int tmp;
-                int.TryParse(pubID, out tmp);
-
-                Pubs.Remove(Pubs.Find(p => p.PubID == tmp));
-            }
-            catch (Exception e)
-            {
-
-                throw e;
-            }
-        }
-
-        public List<CustomerOpinion> GetAllOpinionListAboutPubByID(string pubID)
-        {
-            try
-            {
-                int tmp;
-                int.TryParse(pubID, out tmp);
-
-                return Pubs.Find(p => p.PubID == tmp).CustomerOpinions;
-            }
-            catch (Exception e)
-            {
-
-                throw e;
-            }
-        }
-
-        public List<Pub> GetAllPubList()
-        {
-            return Pubs;
-        }
-
-        public CustomerOpinion GetCustomerOpinion(string opinionID)
-        {
-            try
-            {
-                int tmp;
-                int.TryParse(opinionID, out tmp);
-
-                foreach (Pub pub in Pubs)
+                using (var db = new RftKocsmaAppDBEntities())
                 {
-                    if (pub.CustomerOpinions.Any(p => p.CustomerOpinionID == tmp))
+                    db.Pubs.Remove(db.Pubs.Find(pubID));
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+        }
+
+        public List<EDM.customerOpinions> GetAllOpinionListAboutPubByID(string pubID)
+        {
+            try
+            {
+                if (int.TryParse(pubID, out int tmp))
+                {
+                    using (var db = new RftKocsmaAppDBEntities())
                     {
-                        return pub.CustomerOpinions.Find(p => p.CustomerOpinionID == tmp);
+                        return db.customerOpinions.Where(p => p.pubID == tmp).ToList(); ;
                     }
                 }
-
-                return null;
+                else
+                {
+                    return null;
+                }
             }
             catch (Exception e)
             {
@@ -116,14 +149,47 @@ namespace Pub_n_Fun
             }
         }
 
-        public Pub GetPubByID(string pubID)
+        public List<EDM.Pubs> GetAllPubList()
+        {
+            try
+            {                
+                using (var db = new RftKocsmaAppDBEntities())
+                {                    
+                    return db.Pubs.ToList();
+                }
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+            
+        }
+
+        public customerOpinions GetCustomerOpinion(string opinionID)
         {
             try
             {
-                int tmp;
-                int.TryParse(pubID, out tmp);
+                using ( var db = new RftKocsmaAppDBEntities())
+                {
+                    return db.customerOpinions.Find(opinionID);
+                }
+            }
+            catch (Exception e)
+            {
 
-                return Pubs.Find(p => p.PubID == tmp);
+                throw e;
+            }
+        }
+
+        public EDM.Pubs GetPubByID(string pubID)
+        {
+            try
+            {
+                using (var db = new RftKocsmaAppDBEntities())
+                {
+                    return db.Pubs.Find(pubID);
+                }
             }
             catch (Exception e)
             {
@@ -151,12 +217,12 @@ namespace Pub_n_Fun
             }
         }
 
-        public void UpdateOpinion(CustomerOpinion OpinionToBeUpdated)
+        public void UpdateOpinion(customerOpinions OpinionToBeUpdated)
         {
             throw new NotImplementedException();
         }
 
-        public void UpdatePub(Pub PubToBeUpdated)
+        public void UpdatePub(EDM.Pubs PubToBeUpdated)
         {
             throw new NotImplementedException();
         }

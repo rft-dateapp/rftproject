@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Runtime.Serialization;
+using System.Web;
 
 namespace Pub_n_Fun.Models
 {
@@ -13,6 +16,8 @@ namespace Pub_n_Fun.Models
         [Key]
         private int pubID;
         private string address;
+        private float longitude;
+        private float latitute;
 
         public Pub(string name, int pubID, string address, List<CustomerOpinion> customerOpinions = null, double customerOverallRatings = 0)
         {
@@ -62,5 +67,7 @@ namespace Pub_n_Fun.Models
 
             set => address = value;
         }
+        public float Longitude { get => longitude; set => longitude = value; }
+        public float Latitute { get => latitute; set => latitute = value; }
     }
 }

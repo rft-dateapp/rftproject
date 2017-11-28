@@ -20,3 +20,14 @@ C:\Users\Nealder\Desktop\RFT\rftproject\Server\Service\Pub_n_Fun\Pub_n_Fun\bin\E
 C:\Users\Nealder\Desktop\RFT\rftproject\Server\Service\Pub_n_Fun\Pub_n_Fun\bin\EntityFramework.SqlServer.dll
 C:\Users\Nealder\Desktop\RFT\rftproject\Server\Service\Pub_n_Fun\Pub_n_Fun\bin\EntityFramework.xml
 C:\Users\Nealder\Desktop\RFT\rftproject\Server\Service\Pub_n_Fun\Pub_n_Fun\bin\EntityFramework.SqlServer.xml
+C:\Users\Nealder\Desktop\RFT\rftproject\rftproject\Server\Service\Pub_n_Fun\Pub_n_Fun\bin\Pub_n_Fun.dll.config
+C:\Users\Nealder\Desktop\RFT\rftproject\rftproject\Server\Service\Pub_n_Fun\Pub_n_Fun\bin\Pub_n_Fun.dll
+C:\Users\Nealder\Desktop\RFT\rftproject\rftproject\Server\Service\Pub_n_Fun\Pub_n_Fun\bin\Pub_n_Fun.pdb
+C:\Users\Nealder\Desktop\RFT\rftproject\rftproject\Server\Service\Pub_n_Fun\Pub_n_Fun\bin\EntityFramework.dll
+C:\Users\Nealder\Desktop\RFT\rftproject\rftproject\Server\Service\Pub_n_Fun\Pub_n_Fun\bin\EntityFramework.SqlServer.dll
+C:\Users\Nealder\Desktop\RFT\rftproject\rftproject\Server\Service\Pub_n_Fun\Pub_n_Fun\bin\EntityFramework.xml
+C:\Users\Nealder\Desktop\RFT\rftproject\rftproject\Server\Service\Pub_n_Fun\Pub_n_Fun\bin\EntityFramework.SqlServer.xml
+C:\Users\Nealder\Desktop\RFT\rftproject\rftproject\Server\Service\Pub_n_Fun\Pub_n_Fun\obj\Debug\Pub_n_Fun.csproj.CoreCompileInputs.cache
+C:\Users\Nealder\Desktop\RFT\rftproject\rftproject\Server\Service\Pub_n_Fun\Pub_n_Fun\obj\Debug\Pub_n_Fun.dll
+C:\Users\Nealder\Desktop\RFT\rftproject\rftproject\Server\Service\Pub_n_Fun\Pub_n_Fun\obj\Debug\Pub_n_Fun.pdb
+C:\Users\Nealder\Desktop\RFT\rftproject\rftproject\Server\Service\Pub_n_Fun\Pub_n_Fun\obj\Debug\Pub_n_Fun.csprojResolveAssemblyReference.cache
