@@ -23,7 +23,7 @@
         android:layout_height="76dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:onClick="exitApp"
         android:text="@string/button_exit"
         android:background="@drawable/button_click"
@@ -38,7 +38,7 @@
         android:layout_height="76dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:onClick="suggestOne"
         android:text="@string/button_suggest"
         android:background="@drawable/button_click"
@@ -53,7 +53,7 @@
         android:layout_height="76dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:onClick="showMap"
         android:text="@string/button_map"
         android:background="@drawable/button_click"
@@ -68,13 +68,13 @@
         android:layout_height="76dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="90dp"
         android:onClick="showPubs"
         android:text="@string/button_pubs"
         android:background="@drawable/button_click"
         android:textColor="@color/colorText"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/login_button" />
 
 </android.support.constraint.ConstraintLayout>
