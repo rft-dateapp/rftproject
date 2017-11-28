@@ -11,32 +11,23 @@ namespace Pub_n_Fun.EDM
 {
     using System;
     using System.Collections.Generic;
-    using System.Runtime.Serialization;
-
-    [DataContract]
-    public partial class Pub
+    
+    public partial class Pubs
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Pub()
+        public Pubs()
         {
-            this.customerOpinions = new HashSet<customerOpinion>();
+            this.customerOpinions = new HashSet<customerOpinions>();
         }
-
-        [DataMember]
+    
         public int pubID { get; set; }
-        [DataMember]
         public string address { get; set; }
-        [DataMember]
         public Nullable<int> customerOverallRatings { get; set; }
-        [DataMember]
         public string name { get; set; }
-        [DataMember]
         public Nullable<float> longitude { get; set; }
-        [DataMember]
         public Nullable<float> latitude { get; set; }
-
-        [DataMember]
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<customerOpinion> customerOpinions { get; set; }
+        public virtual ICollection<customerOpinions> customerOpinions { get; set; }
     }
 }

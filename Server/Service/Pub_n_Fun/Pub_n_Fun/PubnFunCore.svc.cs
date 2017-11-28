@@ -14,30 +14,32 @@ namespace Pub_n_Fun
     public class PubnFunCore : IPubnFunCore
     {
         private static List<Models.Pub> Pubs = new List<Models.Pub>();
-        private static List<EDM.Pub> awe = new List<EDM.Pub>()
+        private static List<EDM.Pubs> awe = new List<EDM.Pubs>()
                         {
-                            new EDM.Pub()
+                            new EDM.Pubs()
                             {
                                 pubID = 1,
                                 address = "Debrecen, Zákány utca 26.",
                                 name = "Campus Hotel és Kollégium",
-                                customerOpinions = new List<customerOpinion>()
+                                customerOpinions = new List<customerOpinions>()
                                 {
-                                    new customerOpinion()
+                                    new customerOpinions()
                                     {
                                             opinion = "nincs meleg viz, szar a net, cuck fampus",
                                             rating = 1,
+                                            pubID = 1,
                                     },
-                                    new customerOpinion()
+                                    new customerOpinions()
                                     {
                                             opinion = "uuuuhhhh pull the trigger! Aint nobody gona do it for you.",
                                             rating = 5,
+                                            pubID = 1,
                                     },
                                 },
                                 latitude = (float)47.545093,
                                 longitude = (float)21.640869,
                             },
-                            new EDM.Pub()
+                            new EDM.Pubs()
                             {
                                 pubID = 2,
                                 address = "isten háta mögöttön is túl",
@@ -45,7 +47,7 @@ namespace Pub_n_Fun
                                 latitude = 0,
                                 longitude = 0,
                             },
-                            new EDM.Pub()
+                            new EDM.Pubs()
                             {
                                 pubID = 3,
                                 address = "szomszéd",
@@ -55,7 +57,7 @@ namespace Pub_n_Fun
                             },
                         };
 
-        public void AddOpinion(customerOpinion OpinionToBeAdded)
+        public void AddOpinion(customerOpinions OpinionToBeAdded)
         {
             try
             {
@@ -71,7 +73,7 @@ namespace Pub_n_Fun
             }
         }
 
-        public void AddPub(EDM.Pub PubToBeAdded)
+        public void AddPub(EDM.Pubs PubToBeAdded)
         {
             try
             {
@@ -124,7 +126,7 @@ namespace Pub_n_Fun
             }
         }
 
-        public List<EDM.customerOpinion> GetAllOpinionListAboutPubByID(string pubID)
+        public List<EDM.customerOpinions> GetAllOpinionListAboutPubByID(string pubID)
         {
             try
             {
@@ -132,7 +134,7 @@ namespace Pub_n_Fun
                 {
                     using (var db = new RftKocsmaAppDBEntities())
                     {
-                        return db.customerOpinions.Where(p => p.pubID == tmp).ToList();
+                        return db.customerOpinions.Where(p => p.pubID == tmp).ToList(); ;
                     }
                 }
                 else
@@ -147,15 +149,13 @@ namespace Pub_n_Fun
             }
         }
 
-        public List<EDM.Pub> GetAllPubList()
+        public List<EDM.Pubs> GetAllPubList()
         {
-            /*
             try
-            {
-                // not working , does not really acces any data in the db
-                using (RftKocsmaAppDBEntities db = new RftKocsmaAppDBEntities())
-                {
-                    return db.Pubs.SqlQuery("SELECT * FROM dbo.Pubs").ToList();
+            {                
+                using (var db = new RftKocsmaAppDBEntities())
+                {                    
+                    return db.Pubs.ToList();
                 }
             }
             catch (Exception e)
@@ -163,11 +163,10 @@ namespace Pub_n_Fun
 
                 throw e;
             }
-            */
-            return awe;
+            
         }
 
-        public customerOpinion GetCustomerOpinion(string opinionID)
+        public customerOpinions GetCustomerOpinion(string opinionID)
         {
             try
             {
@@ -183,7 +182,7 @@ namespace Pub_n_Fun
             }
         }
 
-        public EDM.Pub GetPubByID(string pubID)
+        public EDM.Pubs GetPubByID(string pubID)
         {
             try
             {
@@ -218,12 +217,12 @@ namespace Pub_n_Fun
             }
         }
 
-        public void UpdateOpinion(customerOpinion OpinionToBeUpdated)
+        public void UpdateOpinion(customerOpinions OpinionToBeUpdated)
         {
             throw new NotImplementedException();
         }
 
-        public void UpdatePub(EDM.Pub PubToBeUpdated)
+        public void UpdatePub(EDM.Pubs PubToBeUpdated)
         {
             throw new NotImplementedException();
         }

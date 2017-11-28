@@ -12,8 +12,15 @@
           <Property Name="opinionID" Type="int" Nullable="false" />
           <Property Name="pubID" Type="int" />
           <Property Name="rating" Type="real" />
-          <Property Name="customerName" Type="varchar" MaxLength="50" />
+          <Property Name="customerId" Type="int" Nullable="false" />
           <Property Name="opinion" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="customers">
+          <Key>
+            <PropertyRef Name="customerId" />
+          </Key>
+          <Property Name="customerId" Type="int" Nullable="false" />
+          <Property Name="customerName" Type="varchar" MaxLength="60" Nullable="false" />
         </EntityType>
         <EntityType Name="Pubs">
           <Key>
@@ -26,6 +33,18 @@
           <Property Name="longitude" Type="real" />
           <Property Name="latitude" Type="real" />
         </EntityType>
+        <Association Name="FK__customerO__custo__5CD6CB2B">
+          <End Role="customers" Type="Self.customers" Multiplicity="1" />
+          <End Role="customerOpinions" Type="Self.customerOpinions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customers">
+              <PropertyRef Name="customerId" />
+            </Principal>
+            <Dependent Role="customerOpinions">
+              <PropertyRef Name="customerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__customerO__pubID__4BAC3F29">
           <End Role="Pubs" Type="Self.Pubs" Multiplicity="0..1" />
           <End Role="customerOpinions" Type="Self.customerOpinions" Multiplicity="*" />
@@ -40,7 +59,12 @@
         </Association>
         <EntityContainer Name="RftKocsmaAppDBModelStoreContainer">
           <EntitySet Name="customerOpinions" EntityType="Self.customerOpinions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="customers" EntityType="Self.customers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pubs" EntityType="Self.Pubs" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__customerO__custo__5CD6CB2B" Association="Self.FK__customerO__custo__5CD6CB2B">
+            <End Role="customers" EntitySet="customers" />
+            <End Role="customerOpinions" EntitySet="customerOpinions" />
+          </AssociationSet>
           <AssociationSet Name="FK__customerO__pubID__4BAC3F29" Association="Self.FK__customerO__pubID__4BAC3F29">
             <End Role="Pubs" EntitySet="Pubs" />
             <End Role="customerOpinions" EntitySet="customerOpinions" />
@@ -51,18 +75,27 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RftKocsmaAppDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="customerOpinion">
+        <EntityType Name="customerOpinions">
           <Key>
             <PropertyRef Name="opinionID" />
           </Key>
           <Property Name="opinionID" Type="Int32" Nullable="false" />
           <Property Name="pubID" Type="Int32" />
           <Property Name="rating" Type="Single" />
-          <Property Name="customerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="customerId" Type="Int32" Nullable="false" />
           <Property Name="opinion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Pub" Relationship="Self.FK__customerO__pubID__4BAC3F29" FromRole="customerOpinions" ToRole="Pubs" />
+          <NavigationProperty Name="customers" Relationship="Self.FK__customerO__custo__5CD6CB2B" FromRole="customerOpinions" ToRole="customers" />
+          <NavigationProperty Name="Pubs" Relationship="Self.FK__customerO__pubID__4BAC3F29" FromRole="customerOpinions" ToRole="Pubs" />
         </EntityType>
-        <EntityType Name="Pub">
+        <EntityType Name="customers">
+          <Key>
+            <PropertyRef Name="customerId" />
+          </Key>
+          <Property Name="customerId" Type="Int32" Nullable="false" />
+          <Property Name="customerName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="customerOpinions" Relationship="Self.FK__customerO__custo__5CD6CB2B" FromRole="customers" ToRole="customerOpinions" />
+        </EntityType>
+        <EntityType Name="Pubs">
           <Key>
             <PropertyRef Name="pubID" />
           </Key>
@@ -74,9 +107,21 @@
           <Property Name="latitude" Type="Single" />
           <NavigationProperty Name="customerOpinions" Relationship="Self.FK__customerO__pubID__4BAC3F29" FromRole="Pubs" ToRole="customerOpinions" />
         </EntityType>
+        <Association Name="FK__customerO__custo__5CD6CB2B">
+          <End Role="customers" Type="Self.customers" Multiplicity="1" />
+          <End Role="customerOpinions" Type="Self.customerOpinions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="customers">
+              <PropertyRef Name="customerId" />
+            </Principal>
+            <Dependent Role="customerOpinions">
+              <PropertyRef Name="customerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__customerO__pubID__4BAC3F29">
-          <End Role="Pubs" Type="Self.Pub" Multiplicity="0..1" />
-          <End Role="customerOpinions" Type="Self.customerOpinion" Multiplicity="*" />
+          <End Role="Pubs" Type="Self.Pubs" Multiplicity="0..1" />
+          <End Role="customerOpinions" Type="Self.customerOpinions" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Pubs">
               <PropertyRef Name="pubID" />
@@ -87,8 +132,13 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="RftKocsmaAppDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="customerOpinions" EntityType="Self.customerOpinion" />
-          <EntitySet Name="Pubs" EntityType="Self.Pub" />
+          <EntitySet Name="customerOpinions" EntityType="Self.customerOpinions" />
+          <EntitySet Name="customers" EntityType="Self.customers" />
+          <EntitySet Name="Pubs" EntityType="Self.Pubs" />
+          <AssociationSet Name="FK__customerO__custo__5CD6CB2B" Association="Self.FK__customerO__custo__5CD6CB2B">
+            <End Role="customers" EntitySet="customers" />
+            <End Role="customerOpinions" EntitySet="customerOpinions" />
+          </AssociationSet>
           <AssociationSet Name="FK__customerO__pubID__4BAC3F29" Association="Self.FK__customerO__pubID__4BAC3F29">
             <End Role="Pubs" EntitySet="Pubs" />
             <End Role="customerOpinions" EntitySet="customerOpinions" />
@@ -101,18 +151,26 @@
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="RftKocsmaAppDBModelStoreContainer" CdmEntityContainer="RftKocsmaAppDBEntities">
           <EntitySetMapping Name="customerOpinions">
-            <EntityTypeMapping TypeName="RftKocsmaAppDBModel.customerOpinion">
+            <EntityTypeMapping TypeName="RftKocsmaAppDBModel.customerOpinions">
               <MappingFragment StoreEntitySet="customerOpinions">
                 <ScalarProperty Name="opinionID" ColumnName="opinionID" />
                 <ScalarProperty Name="pubID" ColumnName="pubID" />
                 <ScalarProperty Name="rating" ColumnName="rating" />
-                <ScalarProperty Name="customerName" ColumnName="customerName" />
+                <ScalarProperty Name="customerId" ColumnName="customerId" />
                 <ScalarProperty Name="opinion" ColumnName="opinion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="customers">
+            <EntityTypeMapping TypeName="RftKocsmaAppDBModel.customers">
+              <MappingFragment StoreEntitySet="customers">
+                <ScalarProperty Name="customerId" ColumnName="customerId" />
+                <ScalarProperty Name="customerName" ColumnName="customerName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Pubs">
-            <EntityTypeMapping TypeName="RftKocsmaAppDBModel.Pub">
+            <EntityTypeMapping TypeName="RftKocsmaAppDBModel.Pubs">
               <MappingFragment StoreEntitySet="Pubs">
                 <ScalarProperty Name="pubID" ColumnName="pubID" />
                 <ScalarProperty Name="address" ColumnName="address" />
@@ -137,7 +195,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

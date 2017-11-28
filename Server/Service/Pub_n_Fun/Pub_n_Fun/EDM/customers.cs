@@ -12,14 +12,18 @@ namespace Pub_n_Fun.EDM
     using System;
     using System.Collections.Generic;
     
-    public partial class customerOpinion
+    public partial class customers
     {
-        public int opinionID { get; set; }
-        public Nullable<int> pubID { get; set; }
-        public Nullable<float> rating { get; set; }
-        public string customerName { get; set; }
-        public string opinion { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public customers()
+        {
+            this.customerOpinions = new HashSet<customerOpinions>();
+        }
     
-        public virtual Pub Pub { get; set; }
+        public int customerId { get; set; }
+        public string customerName { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<customerOpinions> customerOpinions { get; set; }
     }
 }
