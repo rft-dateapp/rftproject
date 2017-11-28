@@ -2,6 +2,7 @@ package com.baxi.android.rft_kocsmapp;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Environment;
@@ -174,6 +175,27 @@ public class ShowPubsAcivity extends AppCompatActivity implements AsyncResponse{
 
         TextView ratingTextView = (TextView) dialog.findViewById(R.id.ratingTextView);
         ratingTextView.setText("Értékelés: " + Double.toString(pub.getCustomerOverallRatings()));
+
+        final double pubLatitude = pub.getLatitude();
+        final double pubLongitude = pub.getLongitude();
+        final String pubName = pub.getName();
+
+        Button showOnMapButton = (Button) dialog.findViewById(R.id.showOnMapButton);
+        showOnMapButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),
+                        "Showing on map", Toast.LENGTH_LONG)
+                        .show();
+
+                Intent intent = new Intent(ShowPubsAcivity.this, ShowPubOnMapActivity.class);
+                intent.putExtra("pubLatitude", pubLatitude);
+                intent.putExtra("pubLongitude", pubLongitude);
+                intent.putExtra("pubName", pubName);
+
+                startActivity(intent);
+            }
+        });
 
         Button rateButton = (Button) dialog.findViewById(R.id.ratingButton);
         rateButton.setOnClickListener(new View.OnClickListener() {

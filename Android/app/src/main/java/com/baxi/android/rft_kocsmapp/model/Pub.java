@@ -21,7 +21,9 @@ public class Pub implements Serializable{
 
     private int pubID;
 
-    private LatLng position;
+    private double latitude;
+
+    private double longitude;
 
     public Pub(){
 
@@ -67,12 +69,20 @@ public class Pub implements Serializable{
         this.pubID = pubID;
     }
 
-    public LatLng getPosition() {
-        return position;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setPosition(LatLng position) {
-        this.position = position;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     @Override
