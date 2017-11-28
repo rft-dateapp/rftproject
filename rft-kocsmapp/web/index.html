@@ -1,25 +1,27 @@
 <!DOCTYPE html>
-<html lang="hu">
+<html lang="hu" ng-app="pubNFun">
 <head>
     <meta charset="UTF-8">
     <title>Pub'n'Fun</title>
-    <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">    
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>
+    <script src="https://pc035860.github.io/angular-easyfb/angular-easyfb.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+    <!--    <base href="/"> -->
 </head>
+
 <body>
-    <header>
-        <h1 >Pub'n'Fun</h1>
-        <img class="center-img" src="https://i.imgur.com/6uWFpVP.jpg" alt="IMG Placeholder">
-    </header>
-    
+         
     <nav>
-        <div class="nav">
-            <a href="#" class="float-left">Főoldal</a>
-            <a href="#" class="float-left">Kocsmák</a>
-            <a href="#" class="float-left">Térkép</a>
-            <a href="#" class="float-left">Ajánlj 1-et</a>
-            <a href="#" class="float-right">Jelentkezz Be</a>
+        <div class="nav" ng-controller="FaceCtrl">
+            <a href="#!home" class="float-left">Főoldal</a>
+            <a href="#!pubs" class="float-left">Kocsmák</a>
+<!--            <a href="#" class="float-left">Ajánlj 1-et</a> -->
+            <button id="login-button" class="btn btn-primary float-right" ng-click="login()" ng-hide="loginStatus.status == 'connected'">Connect with Facebook</button>             
+            <button id="logout-button" class="btn btn-danger float-right" ng-click="logout()" ng-hide="!loginStatus || loginStatus.status != 'connected'">Logout</button>
             <div class="clearfix"></div>
         </div>
     </nav>
@@ -27,25 +29,34 @@
     <main>
         
         <div class="home">
-            HOME GOES HERE
-        </div>
-        
-        
-        <div class="map-review-container">
-            <div class="review float-left">REVIEW GOES HERE</div>
-            <div id="map" class="map float-right"></div>
-            <div class="clearfix"></div>
+            <div ng-view></div>
         </div>
         
     </main>
     
     <footer>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>            
-        <script src="assets/js/script.js"></script>
-        <script src="assets/js/geolocation.js"></script>
-        <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBT6brEL_t0LBxZaSUSvC06hyP1pgbJf_0&callback=initMap">
-    </script>
-</footer>
+        <script>
+            $(document).ready(function(){
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://pubnfun.azurewebsites.net/PubnFunCore.svc//GetAllPub',
+                    dataType: 'json',
+                    success: function(data){
+                        for(var i = 0; i < data.length; i++){
+                            if(data[i] != null){
+                                $('.review').append('<div class="pub">' + data[i].name + '</div>');
+                            }
+                        }
+                    }
+                });
+            });
+        </script>
+        <script src="assets/js/nav.js"></script>
+        <script src="assets/js/app.js"></script>
+        <script src="assets/js/easyFacebook.js"></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBT6brEL_t0LBxZaSUSvC06hyP1pgbJf_0"></script>
+        
+    </footer>
 </body>
 </html>

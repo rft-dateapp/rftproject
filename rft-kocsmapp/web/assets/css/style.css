@@ -21,6 +21,21 @@ nav {
     height: 50px;
 }
 
+iframe {
+    border: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#login-button {
+    margin: 8px 1% 0 0;
+}
+
+#logout-button {
+    margin: 8px 1% 0 0;
+}
+
+
 .nav {
     background-color: #388E3C;
     position: relative;
@@ -30,7 +45,7 @@ nav {
     z-index: 100;
 }
 
-nav a {
+.nav a {
     text-decoration: none;
     color: white;
     padding: 10px;
@@ -42,15 +57,10 @@ nav a {
     font-family: "Roboto", sans-serif; 
 }
 
-nav a:hover {
+.nav a:hover {
+    text-decoration: none;
     background-color: #FFC107;
     color: #212121;
-}
-
-iframe {
-    border: 0;
-    width: 100%;
-    height: 100%;
 }
 
 .center-img {  
@@ -74,28 +84,41 @@ iframe {
     clear: both;
 }
 
+.text-center {
+    text-align: center;
+}
+
 .home {
     width: 80%;
-    height: 1000px;
     margin: 60px auto;
-    background-color: yellow;
+    background-color: #C8E6C9;
 }
 
 .map-review-container {
     display: block;
     margin: 3% 3% 3% 3%;
     height: 600px;
+    width: inherit;
 }
 
-#map {
+#google-map {
     width: 60%;
     height: inherit;
-    padding-right: 5%;
+}
+
+.ng-scope {
+    padding: 0;
 }
 
 .review {
     width: 35%;
     height: inherit;
-    background-color: blue;
-    margin-right: 5%;
+    background-color: white;
+}
+
+.pub {
+    height: 40px;
+    padding: 10px 0 0 10px;
+    border: 1px solid black;
+    display: block;
 }

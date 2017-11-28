@@ -43,16 +43,16 @@ var myStyle = [
 
 var map;
 function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
-        mapTypeControlOptions: {
-            mapTypeIds: ['mystyle', google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.TERRAIN]
-          },      
+    map = new google.maps.Map(document.getElementById('google-map'), {
+//        mapTypeControlOptions: {
+//            mapTypeIds: ['mystyle', google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.TERRAIN]
+//          },      
         center: {lat: 47.5421887, lng: 21.6395724},
         zoom: 16,
-        mapTypeId: 'mystyle'
+//        mapTypeId: 'mystyle'
     });
 
-    map.mapTypes.set('mystyle', new google.maps.StyledMapType(myStyle, { name: 'My Style' }));
+//    map.mapTypes.set('mystyle', new google.maps.StyledMapType(myStyle, { name: 'My Style' }));
     
 
     // Try HTML5 geolocation.
