@@ -69,15 +69,15 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="EDM\RftKocsmaAppEDM.Context.tt">
+    <Content Include="EDM\RftKocsmaAppDBEDM.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>RftKocsmaAppEDM.edmx</DependentUpon>
-      <LastGenOutput>RftKocsmaAppEDM.Context.cs</LastGenOutput>
+      <DependentUpon>RftKocsmaAppDBEDM.edmx</DependentUpon>
+      <LastGenOutput>RftKocsmaAppDBEDM.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="EDM\RftKocsmaAppEDM.tt">
+    <Content Include="EDM\RftKocsmaAppDBEDM.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>RftKocsmaAppEDM.edmx</DependentUpon>
-      <LastGenOutput>RftKocsmaAppEDM.cs</LastGenOutput>
+      <DependentUpon>RftKocsmaAppDBEDM.edmx</DependentUpon>
+      <LastGenOutput>RftKocsmaAppDBEDM.cs</LastGenOutput>
     </Content>
     <Content Include="PubnFunCore.svc" />
     <Content Include="Web.config">
@@ -86,26 +86,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cache\CacheManager.cs" />
-    <Compile Include="EDM\customerOpinion.cs">
-      <DependentUpon>RftKocsmaAppEDM.tt</DependentUpon>
+    <Compile Include="EDM\customerOpinions.cs">
+      <DependentUpon>RftKocsmaAppDBEDM.tt</DependentUpon>
     </Compile>
-    <Compile Include="EDM\Pub.cs">
-      <DependentUpon>RftKocsmaAppEDM.tt</DependentUpon>
+    <Compile Include="EDM\customers.cs">
+      <DependentUpon>RftKocsmaAppDBEDM.tt</DependentUpon>
     </Compile>
-    <Compile Include="EDM\RftKocsmaAppEDM.Context.cs">
+    <Compile Include="EDM\Pubs.cs">
+      <DependentUpon>RftKocsmaAppDBEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EDM\RftKocsmaAppDBEDM.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>RftKocsmaAppEDM.Context.tt</DependentUpon>
+      <DependentUpon>RftKocsmaAppDBEDM.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="EDM\RftKocsmaAppEDM.cs">
+    <Compile Include="EDM\RftKocsmaAppDBEDM.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>RftKocsmaAppEDM.tt</DependentUpon>
+      <DependentUpon>RftKocsmaAppDBEDM.tt</DependentUpon>
     </Compile>
-    <Compile Include="EDM\RftKocsmaAppEDM.Designer.cs">
+    <Compile Include="EDM\RftKocsmaAppDBEDM.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>RftKocsmaAppEDM.edmx</DependentUpon>
+      <DependentUpon>RftKocsmaAppDBEDM.edmx</DependentUpon>
     </Compile>
     <Compile Include="EM\EntityManager.cs" />
     <Compile Include="Error\InvalidTokenException.cs" />
@@ -119,12 +122,12 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <EntityDeploy Include="EDM\RftKocsmaAppEDM.edmx">
+    <EntityDeploy Include="EDM\RftKocsmaAppDBEDM.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>RftKocsmaAppEDM.Designer.cs</LastGenOutput>
+      <LastGenOutput>RftKocsmaAppDBEDM.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="EDM\RftKocsmaAppEDM.edmx.diagram">
-      <DependentUpon>RftKocsmaAppEDM.edmx</DependentUpon>
+    <Content Include="EDM\RftKocsmaAppDBEDM.edmx.diagram">
+      <DependentUpon>RftKocsmaAppDBEDM.edmx</DependentUpon>
     </Content>
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\PubnFun - Web Deploy.pubxml" />

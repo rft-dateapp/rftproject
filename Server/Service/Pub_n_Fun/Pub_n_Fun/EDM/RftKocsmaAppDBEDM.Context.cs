@@ -18,6 +18,7 @@ namespace Pub_n_Fun.EDM
         public RftKocsmaAppDBEntities()
             : base("name=RftKocsmaAppDBEntities")
         {
+            Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -25,7 +26,8 @@ namespace Pub_n_Fun.EDM
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<customerOpinion> customerOpinions { get; set; }
-        public virtual DbSet<Pub> Pubs { get; set; }
+        public virtual DbSet<customerOpinions> customerOpinions { get; set; }
+        public virtual DbSet<customers> customers { get; set; }
+        public virtual DbSet<Pubs> Pubs { get; set; }
     }
 }
