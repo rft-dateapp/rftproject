@@ -54,7 +54,7 @@ iframe {
     height: inherit;
     text-align: center;
     font-size: 18px;
-    font-family: "Roboto", sans-serif; 
+    font-family: "Roboto", sans-serif;
 }
 
 .nav a:hover {
@@ -63,10 +63,10 @@ iframe {
     color: #212121;
 }
 
-.center-img {  
+.center-img {
     display: block;
     margin: 0 auto;
-}   
+}
 
 .fixed {
     position: fixed;
@@ -101,9 +101,10 @@ iframe {
     width: inherit;
 }
 
-#google-map {
+#google-map, .map {
     width: 60%;
-    height: inherit;
+    height: 600px;
+    float: right;
 }
 
 .ng-scope {
@@ -121,4 +122,8 @@ iframe {
     padding: 10px 0 0 10px;
     border: 1px solid black;
     display: block;
+}
+
+.pub div {
+    height: inherit;
 }
