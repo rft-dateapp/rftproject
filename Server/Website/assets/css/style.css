@@ -68,6 +68,10 @@ iframe {
     margin: 0 auto;
 }
 
+.padding-img {
+    padding: 1%;
+}
+
 .fixed {
     position: fixed;
 }

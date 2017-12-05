@@ -14,18 +14,22 @@
 </head>
 
 <body>
-         
-    <nav>
+
+    <header>
+        <img class="center-img padding-img" src="assets/images/logo.png" alt="Our logo should be here. :/">
+    </header>
+
+     <nav>
         <div class="nav" ng-controller="FaceCtrl">
             <a href="#!home" class="float-left">Főoldal</a>
             <a href="#!pubs" class="float-left">Kocsmák</a>
-<!--            <a href="#" class="float-left">Ajánlj 1-et</a> -->
+<!--            <a href="#" class="float-left">Ajánlj 1-et</a>  -->
             <button id="login-button" class="btn btn-primary float-right" ng-click="login()" ng-hide="loginStatus.status == 'connected'">Connect with Facebook</button>             
             <button id="logout-button" class="btn btn-danger float-right" ng-click="logout()" ng-hide="!loginStatus || loginStatus.status != 'connected'">Logout</button>
             <div class="clearfix"></div>
         </div>
-    </nav>
-    
+    </nav> 
+
     <main>
         
         <div class="home">
