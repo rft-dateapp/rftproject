@@ -99,11 +99,11 @@ var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
 
 .service("pubService", function($http){
     this.getPubs = function(){
-        return $http.get('http://pubnfun.azurewebsites.net/PubnFunCore.svc//GetAllPub');
+        return $http.get('http://rftpubnfun.azurewebsites.net/PubnFunCore.svc//GetAllPub');
     };
 
     this.getOpinionByPubID = function(pubID){
-            return $http.get('http://pubnfun.azurewebsites.net/PubnFunCore.svc/GetAllOpinionAboutPubByID/' + pubID);
+            return $http.get('http://rftpubnfun.azurewebsites.net/PubnFunCore.svc/GetAllOpinionAboutPubByID/' + pubID);
         };
 })
 
