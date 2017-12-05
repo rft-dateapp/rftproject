@@ -1,15 +1,17 @@
 <div class="map-review-container">
-    <div class="review float-left">
-        <div class="pub" ng-repeat="pub in pubs">
-            <button ng-click="setActiveId(pub.pubID)">{{ pub.name }}</button>
-            <div ng-if="isActive(pub.pubID)">
-                <div ng-repeat="opinion in pubOpinions[pub.pubID]">
+    <div class="review-parent">
+        <div class="review float-left">
+            <div class="pub" ng-repeat="pub in pubs">
+                <div ng-click="setActiveId(pub.pubID)">{{ pub.name }}</div>
+                <div ng-if="isActive(pub.pubID)">
+                    <div ng-repeat="opinion in pubOpinions[pub.pubID]">
                         {{ opinion.opinion }}
                     </div>
                 </div>
             </div>
         </div>
-        <pubnfunmap></pubnfunmap>
     </div>
-    <div class="clearfix"></div>
+    <pubnfunmap></pubnfunmap>
+</div>
+<div class="clearfix"></div>
 </div>
