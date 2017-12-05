@@ -2,7 +2,7 @@
     <div class="review-parent">
         <div class="review float-left">
             <div class="pub" ng-repeat="pub in pubs">
-                <div ng-click="setActiveId(pub.pubID)">{{ pub.name }}</div>
+                <div ng-click="setActiveId(pub.pubID)">{{ pub.name }} <span class="float-right"> {{ pub.customerOverallRatings }}</span></div>
                 <div ng-if="isActive(pub.pubID)">
                     <div ng-repeat="opinion in pubOpinions[pub.pubID]">
                         {{ opinion.opinion }}
