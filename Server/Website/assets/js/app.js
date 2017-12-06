@@ -17,9 +17,8 @@ var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
 
 .directive('submitreview', function(){
     return {
-        restrict: 'E',
-        templateUrl: 'assets/templates/review/index.html',
-        replace: true
+        restrict: 'A',
+        templateUrl: 'assets/templates/review/index.html'
     };
 })
 
