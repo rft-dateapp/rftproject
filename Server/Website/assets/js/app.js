@@ -1,4 +1,5 @@
 var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
+
 .config(function($routeProvider){
     $routeProvider
     .when("/home", {
@@ -13,6 +14,26 @@ var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
         templateUrl: "assets/templates/pages/home/index.html"
     })
 })
+
+.directive('submitreview', function(){
+    return {
+        restrict: 'E',
+        templateUrl: 'assets/templates/review/index.html',
+        replace: true
+    };
+})
+
+.controller("ReviewController", function(){
+    
+        this.review = {};
+      
+        this.addReview = function(pub){
+          this.review.createdOn = Date.now();
+          product.reviews.push(this.review);
+          this.review = {};
+        };
+    
+      })
 
 .directive('pubnfunmap', function() {
   var link = function(scope, element, attrs) {
@@ -94,9 +115,6 @@ var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
 
 })
 
-
-
-
 .service("pubService", function($http){
     this.getPubs = function(){
         return $http.get('http://rftpubnfun.azurewebsites.net/PubnFunCore.svc//GetAllPub');
@@ -107,9 +125,9 @@ var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
         };
 })
 
-
 .controller("homeController", function($scope){
 })
+
 .controller("pubsController", ['$scope','pubService', function($scope, pubService){
         $scope.active = 0;
         $scope.pubs = [];
