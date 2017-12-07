@@ -23,7 +23,7 @@ var app = angular.module('easyFacebook', ['ezfb'])
             if (res.authResponse) {
                 updateLoginStatus(updateApiMe);
             }
-        }, {scope: 'email,user_likes'});
+        }, {scope: 'user_likes'});
     };
 
     $scope.logout = function () {
@@ -62,6 +62,7 @@ var app = angular.module('easyFacebook', ['ezfb'])
         $scope.apiMe = res;
       });
     }
-  
-
+    $scope.apiMe = {};
+    $scope.apiMe.name = 'Kis jóska';
+    $scope.apiMe.id = 1;
 });
