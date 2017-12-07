@@ -111,21 +111,35 @@ var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
             return $http.get('http://rftpubnfun.azurewebsites.net/PubnFunCore.svc/GetAllOpinionAboutPubByID/' + pubID);
         };
     })
+
+    .service('reviewService', function($http){
+        this.postReview = function(opinionToPost){
+            return $http.post('http://rftpubnfun.azurewebsites.net/PubnFunCore.svc/PostOpinion', opinionToPost);
+        };
+    })
     
-    .controller("ReviewController", function($scope){
+    .controller("ReviewController", ['$scope', 'reviewService', function($scope, reviewService){
         
         this.review = {};
         
         this.addReview = function(opinionsArrayByPubID, pubID, apiMe){
-            this.review.pubID = pubID;
-            this.review.customers = apiMe.name;
-            this.review.customerId = apiMe.id;
-            opinionsArrayByPubID.push(this.review);
-            this.review = {};
-            console.log(opinionsArrayByPubID);
+            if(apiMe){
+                this.review.pubID = pubID;
+                this.review.customers = apiMe.name;
+                this.review.customerId = apiMe.id;
+                reviewService.postReview(this.review).then(function(){
+                    opinionsArrayByPubID.push(this.review);
+                }, function(){
+                   window.alert('Sajnos nem sikerült a komment elküldése!');
+                   console.log("The review wasn't posted"); 
+                });
+                this.review = {};
+            }else{
+                window.alert('Nem kommentelhetsz amíg nem lépsz be Facebookkal!');
+            }
         };
         
-    })
+    }])
     
     .controller('HomeController', function($scope){
     })

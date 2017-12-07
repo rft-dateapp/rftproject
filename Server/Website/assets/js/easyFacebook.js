@@ -63,6 +63,6 @@ var app = angular.module('easyFacebook', ['ezfb'])
       });
     }
     $scope.apiMe = {};
-    $scope.apiMe.name = 'Kis jóska';
+    $scope.apiMe.name = 'Márió Bersenszki';
     $scope.apiMe.id = 1;
-});
+  });
