@@ -104,7 +104,7 @@ var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
     
     .service('pubService', function($http){
         this.getPubs = function(){
-            return $http.get('http://rftpubnfun.azurewebsites.net/PubnFunCore.svc//GetAllPub');
+            return $http.get('http://rftpubnfun.azurewebsites.net/PubnFunCore.svc/GetAllPub');
         };
         
         this.getOpinionsByPubID = function(pubID){
@@ -116,7 +116,10 @@ var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
         
         this.review = {};
         
-        this.addReview = function(opinionsArrayByPubID){
+        this.addReview = function(opinionsArrayByPubID, pubID, apiMe){
+            this.review.pubID = pubID;
+            this.review.customers = apiMe.name;
+            this.review.customerId = apiMe.id;
             opinionsArrayByPubID.push(this.review);
             this.review = {};
             console.log(opinionsArrayByPubID);

@@ -1,8 +1,9 @@
 <h4>Kommentek</h4>
 <div>KOMMENT : {{pub.name}}</div>
-<form name="submitReview" ng-controller="ReviewController as reviews" ng-submit="reviews.addReview(pubOpinions[pub.pubID])">
+<div source="apiMeJSON"></div>
+<form name="submitReview" ng-controller="ReviewController as reviews" ng-submit="reviews.addReview(pubOpinions[pub.pubID], pub.pubID, apiMe)">
     <fieldset class="form-group">    
-        <select ng-model="opinion.rating" class="form-control" ng-options="stars for stars in [5,4,3,2,1]" title="Stars">
+        <select ng-model="reviews.review.rating" class="form-control" ng-options="stars for stars in [5,4,3,2,1]" title="Stars">
             <option value="">Értékeld a kocsmát!</option>
         </select>
     </fieldset>

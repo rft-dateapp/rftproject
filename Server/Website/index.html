@@ -13,14 +13,14 @@
     <!--    <base href="/"> -->
 </head>
 
-<body>
+<body ng-controller="FaceCtrl">
 
     <header>
         <img class="center-img padding-img" src="assets/images/logo.png" alt="Our logo should be here. :/">
     </header>
 
      <nav>
-        <div class="nav" ng-controller="FaceCtrl">
+        <div class="nav">
             <a href="#!home" class="float-left">Főoldal</a>
             <a href="#!pubs" class="float-left">Kocsmák</a>
 <!--            <a href="#" class="float-left">Ajánlj 1-et</a>  -->
@@ -30,8 +30,7 @@
         </div>
     </nav> 
 
-    <main>
-        
+    <main>    
         <div class="home">
             <div ng-view></div>
         </div>
