@@ -53,11 +53,13 @@ public class PostOpinionTask extends AsyncTask<String, String, String>{
     }
 
     private String post(String url, String json) throws IOException {
+        System.out.println(json);
         RequestBody body = RequestBody.create(JSON, json);
         Request request = new Request.Builder()
                 .url(url)
                 .post(body)
                 .build();
+        System.out.println(request);
         Response response = client.newCall(request).execute();
         return response.body().string();
 
@@ -66,9 +68,9 @@ public class PostOpinionTask extends AsyncTask<String, String, String>{
     private String createJsonFromOpinion(CustomerOpinion opinion){
 
         String json = "{\"customerId\":\"" + opinion.getCustomerID()
-                + "\" ,\"customers\":\"" + opinion.getCustomerName()
+                + "\" ,\"customerName\":\"" + opinion.getCustomerName()
                 + "\" ,\"opinion\":\"" + opinion.getOpinion()
-                +"\" ,\"opinionID\":\"" + Integer.toString(opinion.getCustomerOpinionID())
+                //+"\" ,\"opinionID\":\"" + Integer.toString(opinion.getCustomerOpinionID())
                 +"\" ,\"pubID\":\"" + Integer.toString(opinion.getPubID())
                 +"\",\"rating\":\"" + Double.toString(opinion.getRating())
                 +"\"}";
