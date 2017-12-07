@@ -45,11 +45,11 @@ public class Pub implements Serializable{
         this.customerOverallRatings = customerOverallRatings;
     }
 
-    public List<CustomerOpinion> getCustomerCustomerOpinions() {
+    public List<CustomerOpinion> getCustomerOpinions() {
         return customerCustomerOpinions;
     }
 
-    public void setCustomerCustomerOpinions(List<CustomerOpinion> customerCustomerOpinions) {
+    public void setCustomerOpinions(List<CustomerOpinion> customerCustomerOpinions) {
         this.customerCustomerOpinions = customerCustomerOpinions;
     }
 

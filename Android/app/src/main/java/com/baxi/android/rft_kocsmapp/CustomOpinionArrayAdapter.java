@@ -41,7 +41,7 @@ public class CustomOpinionArrayAdapter extends ArrayAdapter<CustomerOpinion> {
         imageView.setImageResource(R.mipmap.ic_launcher);
         firstLine.setText(values.get(position).getCustomerName());
         secondLine.setText(values.get(position).getOpinion());
-        rating.setText(Double.toString(values.get(position).getRating()));
+        rating.setText("Értékelés: " + Double.toString(values.get(position).getRating()));
 
 
         return rowView;

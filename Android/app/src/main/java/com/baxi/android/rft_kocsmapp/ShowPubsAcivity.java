@@ -37,12 +37,15 @@ public class ShowPubsAcivity extends AppCompatActivity implements AsyncResponse{
 
     private RequestTask task;
 
-    private List<Pub> publist;
+    private ShowPubDialogTask dialogTask;
 
+    private List<Pub> publist;
     private ListView pubListView;
 
     private ArrayAdapter pubAdapter;
     private ArrayAdapter opinionAdapter;
+
+    private static boolean wasDownloaded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,20 +53,25 @@ public class ShowPubsAcivity extends AppCompatActivity implements AsyncResponse{
         setContentView(R.layout.activity_show_pubs_acivity);
 
         this.task = new RequestTask(this);
-
         this.publist = new ArrayList<Pub>();
-
         this.pubListView = (ListView) findViewById(R.id.pubList);
 
-        if(isNetworkConnected()){
-            task.execute("http://pubnfun.azurewebsites.net/PubnFunCore.svc/GetAllPub");
+        if(isNetworkConnected() && !wasDownloaded){
+            this.wasDownloaded = true;
+            task.execute("http://rftpubnfun.azurewebsites.net/PubnFunCore.svc/GetAllPub");
         }
         else{
             this.publist = readList();
         }
-
         showPubs();
+    }
 
+    public void refresh(View view){
+        if(isNetworkConnected()){
+            publist.clear();
+            this.task = new RequestTask(this);
+            task.execute("http://rftpubnfun.azurewebsites.net/PubnFunCore.svc/GetAllPub");
+        }
     }
 
     public void showPubs(){
@@ -86,7 +94,6 @@ public class ShowPubsAcivity extends AppCompatActivity implements AsyncResponse{
 
     private boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-
         return cm.getActiveNetworkInfo() != null;
     }
 
@@ -120,8 +127,7 @@ public class ShowPubsAcivity extends AppCompatActivity implements AsyncResponse{
             e.printStackTrace();
         }
     }
-    private List<Pub> readList()
-    {
+    private List<Pub> readList() {
         try {
             File file = Environment.getExternalStorageDirectory();
             File filename = new File(file, "pubs");
@@ -146,77 +152,84 @@ public class ShowPubsAcivity extends AppCompatActivity implements AsyncResponse{
 
 
     public void showPubDetailsDialog(Pub pub){
-        final Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.pub_details_dialog);
-        dialog.setTitle("Részletek");
 
-        final List<CustomerOpinion> opinions = pub.getCustomerCustomerOpinions();
-        this.opinionAdapter = new CustomOpinionArrayAdapter(ShowPubsAcivity.this, opinions);
+        if(isNetworkConnected()){
+            this.dialogTask = new ShowPubDialogTask(pub, this, isNetworkConnected());
+            String id = Integer.toString(pub.getPubID());
+            String url = "http://rftpubnfun.azurewebsites.net/PubnFunCore.svc/GetAllOpinionAboutPubByID/" + id;
+            dialogTask.execute(url);
+        }
+        else{
+            final Dialog dialog = new Dialog(this);
+            dialog.setContentView(R.layout.pub_details_dialog);
+            dialog.setTitle("Részletek");
 
-        ListView opinionListView = (ListView) dialog.findViewById(R.id.opinionListView);
-        opinionListView.setAdapter(opinionAdapter);
-        opinionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                Toast.makeText(getApplicationContext(),
-                        "Click ListItem Number " + position, Toast.LENGTH_LONG)
-                        .show();
-                CustomerOpinion opinionToHandle = opinions.get(position);
-                System.out.println(opinionToHandle);
-            }
-        });
+            TextView nameTextView = (TextView) dialog.findViewById(R.id.customerNameTextView);
+            nameTextView.setText(pub.getName());
 
-        TextView nameTextView = (TextView) dialog.findViewById(R.id.customerNameTextView);
-        nameTextView.setText(pub.getName());
+            TextView addressTextView = (TextView) dialog.findViewById(R.id.opinionTextView);
+            addressTextView.setText(pub.getAddress());
 
-        TextView addressTextView = (TextView) dialog.findViewById(R.id.opinionTextView);
-        addressTextView.setText(pub.getAddress());
+            TextView ratingTextView = (TextView) dialog.findViewById(R.id.ratingTextView);
+            ratingTextView.setText("Értékelés: " + Double.toString(pub.getCustomerOverallRatings()));
 
-        TextView ratingTextView = (TextView) dialog.findViewById(R.id.ratingTextView);
-        ratingTextView.setText("Értékelés: " + Double.toString(pub.getCustomerOverallRatings()));
+            final double pubLatitude = pub.getLatitude();
+            final double pubLongitude = pub.getLongitude();
+            final String pubName = pub.getName();
 
-        final double pubLatitude = pub.getLatitude();
-        final double pubLongitude = pub.getLongitude();
-        final String pubName = pub.getName();
+            final List<CustomerOpinion> opinions = pub.getCustomerOpinions();
+            this.opinionAdapter = new CustomOpinionArrayAdapter(ShowPubsAcivity.this, opinions);
 
-        Button showOnMapButton = (Button) dialog.findViewById(R.id.showOnMapButton);
-        showOnMapButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),
-                        "Showing on map", Toast.LENGTH_LONG)
-                        .show();
+            ListView opinionListView = (ListView) dialog.findViewById(R.id.opinionListView);
+            opinionListView.setAdapter(opinionAdapter);
+            opinionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view,
+                                        int position, long id) {
+                    Toast.makeText(getApplicationContext(),
+                            "Click ListItem Number " + position, Toast.LENGTH_LONG)
+                            .show();
+                    CustomerOpinion opinionToHandle = opinions.get(position);
+                    System.out.println(opinionToHandle);
+                }
+            });
 
-                Intent intent = new Intent(ShowPubsAcivity.this, ShowPubOnMapActivity.class);
-                intent.putExtra("pubLatitude", pubLatitude);
-                intent.putExtra("pubLongitude", pubLongitude);
-                intent.putExtra("pubName", pubName);
+            Button showOnMapButton = (Button) dialog.findViewById(R.id.showOnMapButton);
+            showOnMapButton.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getApplicationContext(),
+                            "Showing on map", Toast.LENGTH_LONG)
+                            .show();
 
-                startActivity(intent);
-            }
-        });
+                    Intent intent = new Intent(ShowPubsAcivity.this, ShowPubOnMapActivity.class);
+                    intent.putExtra("pubLatitude", pubLatitude);
+                    intent.putExtra("pubLongitude", pubLongitude);
+                    intent.putExtra("pubName", pubName);
 
-        Button rateButton = (Button) dialog.findViewById(R.id.ratingButton);
-        rateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),
-                        "Rate button clicked", Toast.LENGTH_LONG)
-                        .show();
-            }
-        });
+                    startActivity(intent);
+                }
+            });
 
-        Button backButton = (Button) dialog.findViewById(R.id.backButton);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
+            Button rateButton = (Button) dialog.findViewById(R.id.ratingButton);
+            rateButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getApplicationContext(),
+                            "Nincs internetkapcsolat az értékeléshez", Toast.LENGTH_LONG)
+                            .show();
+                }
+            });
 
-        dialog.show();
+            Button backButton = (Button) dialog.findViewById(R.id.backButton);
+            backButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
 
+            dialog.show();
+        }
     }
-
 }

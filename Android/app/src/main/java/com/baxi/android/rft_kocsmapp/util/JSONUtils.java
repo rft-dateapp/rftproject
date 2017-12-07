@@ -38,7 +38,7 @@ public class JSONUtils {
             pub.setName(name);
             pub.setCustomerOverallRatings(customerOverallRating);
             pub.setPubID(pubID);
-            pub.setCustomerCustomerOpinions(opinions);
+            pub.setCustomerOpinions(opinions);
             pub.setLatitude(latitude);
             pub.setLongitude(longitude);
 
@@ -54,7 +54,7 @@ public class JSONUtils {
         CustomerOpinion customerOpinion = new CustomerOpinion();
 
         try {
-            String customerName = object.getString("customerName");
+            String customerName = object.getString("customers");
             String opinion = object.getString("opinion");
 
             double rating = 0.0;
