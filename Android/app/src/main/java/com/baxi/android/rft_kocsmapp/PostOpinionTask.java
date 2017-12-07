@@ -4,8 +4,6 @@ import android.os.AsyncTask;
 
 import com.baxi.android.rft_kocsmapp.model.CustomerOpinion;
 
-import org.json.JSONException;
-
 import java.io.IOException;
 
 import okhttp3.MediaType;
@@ -16,13 +14,12 @@ import okhttp3.Response;
 
 
 public class PostOpinionTask extends AsyncTask<String, String, String>{
-    private int pubId;
 
     private CustomerOpinion opinion;
 
     private boolean isNetworkConnected;
 
-    private String url = "";
+    private String url = "http://rftpubnfun.azurewebsites.net/PubnFunCore.svc/postOpinion";
 
     OkHttpClient client;
 
@@ -30,18 +27,22 @@ public class PostOpinionTask extends AsyncTask<String, String, String>{
     public static final MediaType JSON
             = MediaType.parse("application/json; charset=utf-8");
 
-    public PostOpinionTask(int pubId, CustomerOpinion opinion){
+    public PostOpinionTask(CustomerOpinion opinion){
         super();
-        this.pubId = pubId;
         this.opinion = opinion;
         client = new OkHttpClient();
     }
 
     @Override
     protected String doInBackground(String... urls) {
+        String response = null;
+        try {
+            response = post(url, createJsonFromOpinion(this.opinion));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-
-        return null;
+        return response;
     }
 
     @Override
@@ -63,6 +64,15 @@ public class PostOpinionTask extends AsyncTask<String, String, String>{
     }
 
     private String createJsonFromOpinion(CustomerOpinion opinion){
-        return null;
+
+        String json = "{\"customerId\":\"" + opinion.getCustomerID()
+                + "\" ,\"customers\":\"" + opinion.getCustomerName()
+                + "\" ,\"opinion\":\"" + opinion.getOpinion()
+                +"\" ,\"opinionID\":\"" + Integer.toString(opinion.getCustomerOpinionID())
+                +"\" ,\"pubID\":\"" + Integer.toString(opinion.getPubID())
+                +"\",\"rating\":\"" + Double.toString(opinion.getRating())
+                +"\"}";
+
+        return json;
     }
 }

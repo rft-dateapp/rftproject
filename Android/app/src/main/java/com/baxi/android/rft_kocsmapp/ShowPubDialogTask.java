@@ -19,6 +19,8 @@ import android.widget.Toast;
 import com.baxi.android.rft_kocsmapp.model.CustomerOpinion;
 import com.baxi.android.rft_kocsmapp.model.Pub;
 import com.baxi.android.rft_kocsmapp.util.JSONUtils;
+import com.facebook.AccessToken;
+import com.facebook.Profile;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,11 +48,13 @@ public class ShowPubDialogTask extends AsyncTask<String, String, String> {
 
     private ArrayAdapter opinionAdapter;
 
+
     public ShowPubDialogTask(Pub pub, Context context, boolean isNetworkConnected){
         super();
         this.pub = pub;
         this.context = context;
         this.isNetworkConnected = isNetworkConnected;
+
     }
 
     @Override
@@ -164,25 +168,46 @@ public class ShowPubDialogTask extends AsyncTask<String, String, String> {
         dialog.show();
     }
 
-    public void showRatingDialog(Pub pub){
+    public void showRatingDialog(final Pub pub){
         Log.d("showRatingDialog", "Showing dialog for posting opinions");
         final Dialog dialog = new Dialog(this.context);
         dialog.setContentView(R.layout.post_opinion_dialog);
         dialog.setTitle("Mondd el a véleményed!");
 
-        EditText opinionText = (EditText) dialog.findViewById(R.id.OpinionText);
+        final EditText opinionText = (EditText) dialog.findViewById(R.id.OpinionText);
 
         Button rateButton = (Button) dialog.findViewById(R.id.postRatingButton);
 
         Button cancelButton = (Button) dialog.findViewById(R.id.cancelPostButton);
 
-        RatingBar ratingBar = (RatingBar) dialog.findViewById(R.id.ratingBar);
+        final RatingBar ratingBar = (RatingBar) dialog.findViewById(R.id.ratingBar);
+
+
 
         rateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("RateButton", "Rate Button clicked");
+                if(AccessToken.getCurrentAccessToken() == null){
+                    Toast.makeText(getApplicationContext(),
+                            "Jelentkezz be!", Toast.LENGTH_SHORT)
+                            .show();
+                }
+                else{
+                    CustomerOpinion opinionToSend = new CustomerOpinion();
+                    opinionToSend.setOpinion(opinionText.getText().toString());
+                    opinionToSend.setRating(ratingBar.getRating());
+                    opinionToSend.setCustomerName(Profile.getCurrentProfile().getName());
+                    opinionToSend.setPubID(pub.getPubID());
+                    opinionToSend.setCustomerID(AccessToken.getCurrentAccessToken().getUserId());
+                    opinionToSend.setCustomerOpinionID(2);
+                    System.out.println(opinionToSend);
+                    new PostOpinionTask(opinionToSend).execute();
+                    dialog.dismiss();
+                }
+
             }
+
         });
 
         cancelButton.setOnClickListener(new View.OnClickListener() {

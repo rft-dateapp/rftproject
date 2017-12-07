@@ -18,6 +18,8 @@ import android.widget.Toast;
 import com.baxi.android.rft_kocsmapp.model.CustomerOpinion;
 import com.baxi.android.rft_kocsmapp.model.Pub;
 import com.baxi.android.rft_kocsmapp.util.JSONUtils;
+import com.facebook.AccessToken;
+import com.facebook.Profile;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,13 +35,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ShowPubsAcivity extends AppCompatActivity implements AsyncResponse{
+public class ShowPubsActivity extends AppCompatActivity implements AsyncResponse{
 
     private RequestTask task;
 
     private ShowPubDialogTask dialogTask;
 
-    private List<Pub> publist;
+    private List<Pub> pubList;
     private ListView pubListView;
 
     private ArrayAdapter pubAdapter;
@@ -53,7 +55,7 @@ public class ShowPubsAcivity extends AppCompatActivity implements AsyncResponse{
         setContentView(R.layout.activity_show_pubs_acivity);
 
         this.task = new RequestTask(this);
-        this.publist = new ArrayList<Pub>();
+        this.pubList = new ArrayList<Pub>();
         this.pubListView = (ListView) findViewById(R.id.pubList);
 
         if(isNetworkConnected() && !wasDownloaded){
@@ -61,21 +63,21 @@ public class ShowPubsAcivity extends AppCompatActivity implements AsyncResponse{
             task.execute("http://rftpubnfun.azurewebsites.net/PubnFunCore.svc/GetAllPub");
         }
         else{
-            this.publist = readList();
+            this.pubList = readList();
         }
         showPubs();
     }
 
     public void refresh(View view){
         if(isNetworkConnected()){
-            publist.clear();
+            pubList.clear();
             this.task = new RequestTask(this);
             task.execute("http://rftpubnfun.azurewebsites.net/PubnFunCore.svc/GetAllPub");
         }
     }
 
     public void showPubs(){
-        this.pubAdapter = new CustomPubArrayAdapter(ShowPubsAcivity.this, publist);
+        this.pubAdapter = new CustomPubArrayAdapter(ShowPubsActivity.this, pubList);
         pubListView.setAdapter(pubAdapter);
         pubListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -84,7 +86,7 @@ public class ShowPubsAcivity extends AppCompatActivity implements AsyncResponse{
                 Toast.makeText(getApplicationContext(),
                         "Click ListItem Number " + position, Toast.LENGTH_LONG)
                         .show();
-                Pub pubToHandle = publist.get(position);
+                Pub pubToHandle = pubList.get(position);
                 System.out.println(pubToHandle);
                 showPubDetailsDialog(pubToHandle);
             }
@@ -105,7 +107,7 @@ public class ShowPubsAcivity extends AppCompatActivity implements AsyncResponse{
                 if(Jarray.get(i).toString() != "null"){
                     JSONObject object = Jarray.getJSONObject(i);
                     Pub pub = JSONUtils.createPubFromJson(object);
-                    publist.add(pub);
+                    pubList.add(pub);
                 }
             }
             showPubs();
@@ -147,7 +149,7 @@ public class ShowPubsAcivity extends AppCompatActivity implements AsyncResponse{
     @Override
     public void onPause(){
         super.onPause();
-        saveList(publist);
+        saveList(pubList);
     }
 
 
@@ -178,7 +180,7 @@ public class ShowPubsAcivity extends AppCompatActivity implements AsyncResponse{
             final String pubName = pub.getName();
 
             final List<CustomerOpinion> opinions = pub.getCustomerOpinions();
-            this.opinionAdapter = new CustomOpinionArrayAdapter(ShowPubsAcivity.this, opinions);
+            this.opinionAdapter = new CustomOpinionArrayAdapter(ShowPubsActivity.this, opinions);
 
             ListView opinionListView = (ListView) dialog.findViewById(R.id.opinionListView);
             opinionListView.setAdapter(opinionAdapter);
@@ -202,7 +204,7 @@ public class ShowPubsAcivity extends AppCompatActivity implements AsyncResponse{
                             "Showing on map", Toast.LENGTH_LONG)
                             .show();
 
-                    Intent intent = new Intent(ShowPubsAcivity.this, ShowPubOnMapActivity.class);
+                    Intent intent = new Intent(ShowPubsActivity.this, ShowPubOnMapActivity.class);
                     intent.putExtra("pubLatitude", pubLatitude);
                     intent.putExtra("pubLongitude", pubLongitude);
                     intent.putExtra("pubName", pubName);

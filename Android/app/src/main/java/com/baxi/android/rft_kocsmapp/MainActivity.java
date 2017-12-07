@@ -9,9 +9,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.Profile;
+import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -19,12 +23,44 @@ public class MainActivity extends AppCompatActivity {
 
     CallbackManager callbackManager;
 
+    private AccessToken accessToken;
+    private Profile profile;
+    private AccessTokenTracker accessTokenTracker;
+    private ProfileTracker profileTracker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         callbackManager = CallbackManager.Factory.create();
+
+        profileTracker = new ProfileTracker() {
+            @Override
+            protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
+                if(oldProfile == null){
+                    MainActivity.this.profile = currentProfile;
+                }
+                else{
+                    MainActivity.this.profile = oldProfile;
+                }
+
+            }
+        };
+
+        accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
+                if(oldAccessToken == null){
+                    MainActivity.this.accessToken = currentAccessToken;
+                }
+                else {
+                    MainActivity.this.accessToken = oldAccessToken;
+                }
+
+            }
+        };
+
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
 
@@ -52,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showPubs(View view) {
-        Intent intent = new Intent(this, ShowPubsAcivity.class);
+        Intent intent = new Intent(this, ShowPubsActivity.class);
         startActivity(intent);
     }
 
@@ -106,6 +142,14 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
 
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        profileTracker.stopTracking();
+        accessTokenTracker.stopTracking();
+    }
 }
+
 
 

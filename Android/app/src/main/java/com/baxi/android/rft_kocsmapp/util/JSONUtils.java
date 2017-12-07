@@ -54,7 +54,7 @@ public class JSONUtils {
         CustomerOpinion customerOpinion = new CustomerOpinion();
 
         try {
-            String customerName = object.getString("customers");
+            String customerName = object.getString("customerName");
             String opinion = object.getString("opinion");
 
             double rating = 0.0;
@@ -66,10 +66,13 @@ public class JSONUtils {
                 opinionID = object.getInt("opinionID");
             }
 
+            String customerID = object.getString("customerId");
+
             customerOpinion.setCustomerName(customerName);
             customerOpinion.setOpinion(opinion);
             customerOpinion.setCustomerOpinionID(opinionID);
             customerOpinion.setRating(rating);
+            customerOpinion.setCustomerID(customerID);
             //customerOpinion.setPubID(pubID);
 
         } catch (JSONException e) {
