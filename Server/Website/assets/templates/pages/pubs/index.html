@@ -3,16 +3,19 @@
         <div class="review float-left">
             <div class="pub" ng-repeat="pub in pubs">
                 <div ng-click="setActiveId(pub.pubID)">{{ pub.name }}<span class="float-right"> {{ pub.customerOverallRatings }}</span></div>
-                <div ng-if="isActive(pub.pubID)">
+                <div ng-if="isActive(pub.pubID)">                   
                     <div ng-repeat="opinion in pubOpinions[pub.pubID]">
-                        {{ opinion.opinion }} <span class="float-right">{{opinion.rating}}</span>
+                        <blockquote>
+                            {{ opinion.opinion }} <span class="float-right">{{opinion.rating}}</span>
+                        </blockquote>
                     </div>
-                    <div submitreview></div>
-                </div>
+                </ul>
+                <div submitreview></div>
             </div>
         </div>
     </div>
-    <pubnfunmap></pubnfunmap>
+</div>
+<pubnfunmap></pubnfunmap>
 </div>
 <div class="clearfix"></div>
 </div>

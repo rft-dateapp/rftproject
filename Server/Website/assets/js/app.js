@@ -111,7 +111,7 @@ var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
             return $http.get('http://rftpubnfun.azurewebsites.net/PubnFunCore.svc/GetAllOpinionAboutPubByID/' + pubID);
         };
     })
-
+    
     .service('reviewService', function($http){
         this.postReview = function(opinionToPost){
             return $http.post('http://rftpubnfun.azurewebsites.net/PubnFunCore.svc/PostOpinion', opinionToPost);
@@ -123,20 +123,22 @@ var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
         this.review = {};
         
         this.addReview = function(opinionsArrayByPubID, pubID, apiMe){
-            if(apiMe){
-                this.review.pubID = pubID;
-                this.review.customers = apiMe.name;
-                this.review.customerId = apiMe.id;
-                reviewService.postReview(this.review).then(function(){
-                    opinionsArrayByPubID.push(this.review);
-                }, function(){
-                   window.alert('Sajnos nem sikerült a komment elküldése!');
-                   console.log("The review wasn't posted"); 
-                });
-                this.review = {};
-            }else{
-                window.alert('Nem kommentelhetsz amíg nem lépsz be Facebookkal!');
-            }
+            
+            //            if(apiMe){
+            this.review.pubID = pubID;
+            this.review.customerName = 'Márió Bersenszki';
+            this.review.customerId = 69;
+            opinionsArrayByPubID.push(this.review);
+            reviewService.postReview(this.review).then(function(){
+            // ide majd a kocsmát refreshelni lul
+            }, function(){
+                window.alert('Sajnos nem sikerült a komment elküldése!');
+                console.log("The review wasn't posted"); 
+            });
+            this.review = {};
+            // }else{
+            //     window.alert('Nem kommentelhetsz amíg nem lépsz be Facebookkal!');
+            // }
         };
         
     }])

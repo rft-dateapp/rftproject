@@ -62,7 +62,4 @@ var app = angular.module('easyFacebook', ['ezfb'])
         $scope.apiMe = res;
       });
     }
-    $scope.apiMe = {};
-    $scope.apiMe.name = 'Márió Bersenszki';
-    $scope.apiMe.id = 1;
   });
