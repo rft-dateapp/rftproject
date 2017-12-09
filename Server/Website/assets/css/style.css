@@ -4,17 +4,23 @@
     box-sizing: border-box;
 }
 
-blockquote {
-    overflow-wrap: break-word;
-    max-width: 330px;
-}
-
-html, body {
+body, html {
     margin: 0;
     padding: 0;
     background-color: #C8E6C9;
-    width: 100%;
     height: 100%;
+}
+h1, h2, h3, h4, h5, h6, p, a, span {
+    font-family: "Roboto", sans-serif;   
+}
+
+h1 {
+    font-size: 42px;
+}
+
+blockquote {
+    overflow-wrap: break-word;
+    max-width: 330px;
 }
 
 header > h1 {
@@ -34,12 +40,76 @@ nav {
     margin: 8px 1% 0 0;
 }
 
+.banner {
+    display: table;
+    width: 100%;
+    position: relative;
+    background: url('../images/banner.jpeg');
+    min-height: 600px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.banner__overlay {
+    background-color: #000000;
+    opacity: 0.5;
+    transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+}
+.banner__content {
+    display: table-cell;
+    vertical-align: middle;
+    color: #ffffff;
+    position: relative;
+    z-index: 1000;
+}
+
+.navbar {
+    background: transparent;
+    position: absolute;
+    width: 100%;
+    z-index: 9999;
+    border: 0;
+    margin-top: 20px;
+}
+.navbar-collapse {
+    border: 0;
+}
+@media(min-width: 768px) {
+    .main-nav {
+        margin-right: 50px;
+    }
+}
+.navbar li a { 
+    color: #ffffff !important;
+}
+@media(max-width: 767px) {
+    .navbar li a {
+        text-align: left;
+    }
+}
+.navbar-brand {
+    padding: 0;
+}
+.navbar-brand img{
+    max-width: 100px;
+}
+.navbar li a:hover {
+    
+}
+.navbar li.active a {
+    background-color: transparent !important;
+}
 
 .nav {
-    background-color: #388E3C;
+    background-color: transparent;
     position: relative;
     top: 0;
-    width: 100%;
     height: inherit;
     z-index: 100;
 }
@@ -49,7 +119,6 @@ nav {
     color: white;
     padding: 10px;
     margin: 0;
-    width: 8em;
     height: inherit;
     text-align: center;
     font-size: 18px;
@@ -62,6 +131,9 @@ nav {
     color: #212121;
 }
 
+.secondary-nav {
+    display: inline-block;
+}
 .ng-scope {
     margin: 0;
 }
@@ -93,12 +165,6 @@ nav {
 
 .text-center {
     text-align: center;
-}
-
-.home {
-    width: 80%;
-    margin: 60px auto;
-    background-color: #C8E6C9;
 }
 
 .map-review-container {

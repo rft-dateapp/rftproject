@@ -124,21 +124,23 @@ var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
         
         this.addReview = function(opinionsArrayByPubID, pubID, apiMe){
             
-            //            if(apiMe){
+            if(apiMe && (apiMe.name && apiMe.id)){
             this.review.pubID = pubID;
             this.review.customerName = 'Márió Bersenszki';
             this.review.customerId = 69;
+
             opinionsArrayByPubID.push(this.review);
+            
             reviewService.postReview(this.review).then(function(){
-            // ide majd a kocsmát refreshelni lul
             }, function(){
+                opinionsArrayByPubID.pop();
                 window.alert('Sajnos nem sikerült a komment elküldése!');
                 console.log("The review wasn't posted"); 
             });
             this.review = {};
-            // }else{
-            //     window.alert('Nem kommentelhetsz amíg nem lépsz be Facebookkal!');
-            // }
+            }else{
+                window.alert('Nem kommentelhetsz amíg nem lépsz be Facebookkal!');
+            }
         };
         
     }])
@@ -166,7 +168,6 @@ var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
                     });
                 }
             }
-            console.log($scope.pubOpinions[$scope.active]);
         };
         
         $scope.isActive = function(id){
