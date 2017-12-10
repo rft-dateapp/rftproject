@@ -1,10 +1,10 @@
 <div ng-controller="ReviewController as reviews">
-    <div ng-show="reviews.review.opinion">    
+    <div ng-show="reviews.review.opinion && apiMe">
+        <h3>{{ apiMe.name }}</h3>    
         <blockquote>
             {{ reviews.review.opinion }} <span class="float-right">{{reviews.review.rating}}</span>
         </blockquote>    
     </div>
-    <h4>Kommentek</h4>
     <form name="submitReview" ng-submit="reviews.addReview(pubOpinions[pub.pubID], pub.pubID, apiMe)">
         <fieldset class="form-group">    
             <select ng-model="reviews.review.rating" class="form-control" ng-options="stars for stars in [5,4,3,2,1]" title="Stars" required>
@@ -15,7 +15,7 @@
             <textarea ng-model="reviews.review.opinion" class="form-control" placeholder="Írj egy rövid kommentet a kocsmáról ..." title="Review" required></textarea>
         </fieldset>
         <fieldset class="form-group">
-            <input type="submit" class="btn btn-primary pull-right" value="Komment küldése!"/>
+            <input type="submit" class="btn btn-primary" value="Komment küldése!"/>
         </fieldset>
     </form>
 </div>
