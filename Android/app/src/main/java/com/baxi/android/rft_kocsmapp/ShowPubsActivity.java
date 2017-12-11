@@ -18,8 +18,6 @@ import android.widget.Toast;
 import com.baxi.android.rft_kocsmapp.model.CustomerOpinion;
 import com.baxi.android.rft_kocsmapp.model.Pub;
 import com.baxi.android.rft_kocsmapp.util.JSONUtils;
-import com.facebook.AccessToken;
-import com.facebook.Profile;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -166,7 +164,7 @@ public class ShowPubsActivity extends AppCompatActivity implements AsyncResponse
             dialog.setContentView(R.layout.pub_details_dialog);
             dialog.setTitle("Részletek");
 
-            TextView nameTextView = (TextView) dialog.findViewById(R.id.customerNameTextView);
+            TextView nameTextView = (TextView) dialog.findViewById(R.id.pubNameTextView);
             nameTextView.setText(pub.getName());
 
             TextView addressTextView = (TextView) dialog.findViewById(R.id.opinionTextView);

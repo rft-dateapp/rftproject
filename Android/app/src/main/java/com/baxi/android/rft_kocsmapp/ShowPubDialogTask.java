@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
-import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -84,7 +83,7 @@ public class ShowPubDialogTask extends AsyncTask<String, String, String> {
         dialog.setContentView(R.layout.pub_details_dialog);
         dialog.setTitle("Részletek");
 
-        TextView nameTextView = (TextView) dialog.findViewById(R.id.customerNameTextView);
+        TextView nameTextView = (TextView) dialog.findViewById(R.id.pubNameTextView);
         nameTextView.setText(pub.getName());
 
         TextView addressTextView = (TextView) dialog.findViewById(R.id.opinionTextView);
@@ -202,7 +201,7 @@ public class ShowPubDialogTask extends AsyncTask<String, String, String> {
                     opinionToSend.setCustomerID(AccessToken.getCurrentAccessToken().getUserId());
                     opinionToSend.setCustomerOpinionID(2);
                     System.out.println(opinionToSend);
-                    new PostOpinionTask(opinionToSend).execute();
+                    new PostOpinionTask(opinionToSend).execute("http://rftpubnfun.azurewebsites.net/PubnFunCore.svc/postOpinion");
                     dialog.dismiss();
                 }
 

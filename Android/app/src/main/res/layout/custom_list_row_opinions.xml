@@ -23,7 +23,7 @@
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/customerNameTextView"
+        android:id="@+id/pubNameTextView"
         android:layout_width="fill_parent"
         android:layout_height="26dip"
         android:layout_above="@id/opinionTextView"

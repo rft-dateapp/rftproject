@@ -33,7 +33,7 @@ public class CustomPubArrayAdapter extends ArrayAdapter<Pub> {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.custom_list_row, parent, false);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.row_icon);
-        TextView firstLine = (TextView) rowView.findViewById(R.id.customerNameTextView);
+        TextView firstLine = (TextView) rowView.findViewById(R.id.pubNameTextView);
         TextView secondLine = (TextView) rowView.findViewById(R.id.opinionTextView);
 
         imageView.setImageResource(R.mipmap.ic_launcher);

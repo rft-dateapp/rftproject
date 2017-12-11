@@ -37,7 +37,7 @@ public class PostOpinionTask extends AsyncTask<String, String, String>{
     protected String doInBackground(String... urls) {
         String response = null;
         try {
-            response = post(url, createJsonFromOpinion(this.opinion));
+            response = post(urls[0], createJsonFromOpinion(this.opinion));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -70,7 +70,6 @@ public class PostOpinionTask extends AsyncTask<String, String, String>{
         String json = "{\"customerId\":\"" + opinion.getCustomerID()
                 + "\" ,\"customerName\":\"" + opinion.getCustomerName()
                 + "\" ,\"opinion\":\"" + opinion.getOpinion()
-                //+"\" ,\"opinionID\":\"" + Integer.toString(opinion.getCustomerOpinionID())
                 +"\" ,\"pubID\":\"" + Integer.toString(opinion.getPubID())
                 +"\",\"rating\":\"" + Double.toString(opinion.getRating())
                 +"\"}";

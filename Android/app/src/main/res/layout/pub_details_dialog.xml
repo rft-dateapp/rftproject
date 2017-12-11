@@ -1,117 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryLight">
+    android:background="@color/colorPrimaryLight"
+    android:orientation="vertical"
+    tools:layout_editor_absoluteY="81dp">
 
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="?android:attr/listPreferredItemHeight"
-        android:padding="6dip" >
-
-        <ImageView
-            android:id="@+id/icon"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="6dip"
-            android:contentDescription="TODO"
-            android:src="@mipmap/ic_launcher" />
-
-        <TextView
-            android:id="@+id/opinionTextView"
-            android:layout_width="fill_parent"
-            android:layout_height="26dip"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_toRightOf="@id/icon"
-            android:textSize="14dp" />
-
-        <TextView
-            android:id="@+id/customerNameTextView"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/opinionTextView"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignWithParentIfMissing="true"
-            android:layout_toRightOf="@id/icon"
-            android:gravity="center_vertical"
-            android:textSize="14dp" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/ratingTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:gravity="center_vertical"
-            android:textSize="18dp"
-            android:layout_gravity="center|right" />
+    <TextView
+        android:id="@+id/opinionTextView"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@id/icon"
+        android:textSize="14dp"
+        app:layout_constraintStart_toEndOf="@+id/icon"
+        app:layout_constraintTop_toBottomOf="@+id/pubNameTextView" />
 
-        <Button
-            android:id="@+id/showOnMapButton"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_gravity="center|left"
-            android:layout_margin="5dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/button_click"
-            android:layout_alignParentRight="true"
-            android:text="Mutasd a térképen"
-            android:textColor="@color/colorText" />
+    <TextView
+        android:id="@+id/pubNameTextView"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textSize="16dp"
+        app:layout_constraintStart_toEndOf="@+id/icon"
+        app:layout_constraintTop_toTopOf="@+id/icon" />
 
-    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/ratingTextView"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/opinionTextView" />
 
 
     <ListView
         android:id="@+id/opinionListView"
+        android:layout_width="326dp"
+        android:layout_height="309dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/showOnMapButton" />
+
+    <Button
+        android:id="@+id/ratingButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/button_click"
+        android:text="Értékelés"
+        android:textColor="@color/colorText"
+        app:layout_constraintBottom_toBottomOf="@+id/backButton"
+        app:layout_constraintEnd_toStartOf="@+id/backButton" />
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/button_click"
+        android:text="Vissza"
+        android:textColor="@color/colorText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/opinionListView" />
 
-        <Button
-            android:id="@+id/ratingButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Értékelés"
-            android:layout_margin="5dp"
-            android:layout_gravity="center"
-            android:textColor="@color/colorText"
-            android:background="@drawable/button_click"
-            />
+    <Button
+        android:id="@+id/showOnMapButton"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/button_click"
+        android:text="Mutasd a térképen"
+        android:textColor="@color/colorText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/icon" />
 
-        <Button
-            android:id="@+id/backButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Vissza"
-            android:layout_margin="5dp"
-            android:layout_gravity="center|right"
-            android:textColor="@color/colorText"
-            android:background="@drawable/button_click" />
-
-
-
-
-    </FrameLayout>
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
