@@ -58,7 +58,8 @@ public class ShowPubsActivity extends AppCompatActivity implements AsyncResponse
 
         if(isNetworkConnected() && !wasDownloaded){
             this.wasDownloaded = true;
-            task.execute("http://rftpubnfun.azurewebsites.net/PubnFunCore.svc/GetAllPub");
+            String url = "http://rftpubnfun.azurewebsites.net/PubnFunCore.svc/GetAllPub";
+            task.execute(url);
         }
         else{
             this.pubList = readList();
@@ -171,7 +172,7 @@ public class ShowPubsActivity extends AppCompatActivity implements AsyncResponse
             addressTextView.setText(pub.getAddress());
 
             TextView ratingTextView = (TextView) dialog.findViewById(R.id.ratingTextView);
-            ratingTextView.setText("Értékelés: " + Double.toString(pub.getCustomerOverallRatings()));
+            ratingTextView.setText(String.format("Értékelés: %.1f" ,pub.getCustomerOverallRatings()));
 
             final double pubLatitude = pub.getLatitude();
             final double pubLongitude = pub.getLongitude();

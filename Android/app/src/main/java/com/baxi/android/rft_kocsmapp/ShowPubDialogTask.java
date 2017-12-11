@@ -88,7 +88,7 @@ public class ShowPubDialogTask extends AsyncTask<String, String, String> {
         addressTextView.setText(pub.getAddress());
 
         TextView ratingTextView = (TextView) dialog.findViewById(R.id.ratingTextView);
-        ratingTextView.setText(String.format("Értékelés: %.2f",pub.getCustomerOverallRatings()));
+        ratingTextView.setText(String.format("Értékelés: %.1f",pub.getCustomerOverallRatings()));
 
         final double pubLatitude = pub.getLatitude();
         final double pubLongitude = pub.getLongitude();
@@ -199,7 +199,8 @@ public class ShowPubDialogTask extends AsyncTask<String, String, String> {
                     opinionToSend.setCustomerID(AccessToken.getCurrentAccessToken().getUserId());
                     opinionToSend.setCustomerOpinionID(2);
                     System.out.println(opinionToSend);
-                    new PostOpinionTask(opinionToSend).execute("http://rftpubnfun.azurewebsites.net/PubnFunCore.svc/postOpinion");
+                    String url = "http://rftpubnfun.azurewebsites.net/PubnFunCore.svc/postOpinion";
+                    new PostOpinionTask(opinionToSend).execute(url);
                     dialog.dismiss();
 
 

@@ -19,8 +19,6 @@ public class PostOpinionTask extends AsyncTask<String, String, String>{
 
     private boolean isNetworkConnected;
 
-    private String url = "http://rftpubnfun.azurewebsites.net/PubnFunCore.svc/postOpinion";
-
     OkHttpClient client;
 
 

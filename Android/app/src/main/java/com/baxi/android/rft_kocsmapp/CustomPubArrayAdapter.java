@@ -38,7 +38,7 @@ public class CustomPubArrayAdapter extends ArrayAdapter<Pub> {
 
         imageView.setImageResource(R.mipmap.ic_launcher);
         firstLine.setText(values.get(position).getName());
-        secondLine.setText("Átlagos felhasználói értékelés: " + Double.toString(values.get(position).getCustomerOverallRatings()));
+        secondLine.setText(String.format("Átlagos felhasználói értékelés: %.1f", values.get(position).getCustomerOverallRatings()));
 
 
         return rowView;
