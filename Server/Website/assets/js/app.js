@@ -32,7 +32,7 @@ var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
             center: new google.maps.LatLng(47.5421887, 21.6395724),
             zoom: 16,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
-            scrollwheel: false
+            scrollwheel: true
         };
         
         function initMap() {
@@ -56,14 +56,16 @@ var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
                 handleLocationError(false);
             }
             
-            var handleLocationError = function(browserHasGeolocation) {
-                console.log(browserHasGeolocation ?
-                    'Error: The Geolocation service failed.' :
-                    'Error: Your browser doesn\'t support geolocation.');
-                }
+        }
+        
+        
+        var handleLocationError = function(browserHasGeolocation) {
+            console.log(browserHasGeolocation ?
+                'Error: The Geolocation service failed.' :
+                'Error: Your browser doesn\'t support geolocation.');
             }
             
-            function setMarker(map, position, title, content) {
+            scope.setMarker = function(map, position, title, content) {
                 var marker;
                 var markerOptions = {
                     position: position,
@@ -87,6 +89,24 @@ var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
                     infoWindow = new google.maps.InfoWindow(infoWindowOptions);
                     infoWindow.open(map, marker);
                 });
+            }
+            
+            scope.setMapCenter = function(clickOff, latitude, longtitude){ 
+                if (navigator.geolocation && clickOff) {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        var pos = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+                        
+                        map.setCenter(pos);
+                    }, function() {
+                        handleLocationError(true);
+                    });
+                } else {
+                    map.setCenter({lat: latitude, lng: longtitude});
+                }
+                
             }
             
             initMap();
@@ -125,19 +145,19 @@ var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
         this.addReview = function(opinionsArrayByPubID, pubID, apiMe){
             
             if(apiMe && (apiMe.name && apiMe.id)){
-            this.review.pubID = pubID;
-            this.review.customerName = 'Márió Bersenszki';
-            this.review.customerId = 69;
-
-            opinionsArrayByPubID.push(this.review);
-            
-            reviewService.postReview(this.review).then(function(){
-            }, function(){
-                opinionsArrayByPubID.pop();
-                window.alert('Sajnos nem sikerült a komment elküldése!');
-                console.log("The review wasn't posted"); 
-            });
-            this.review = {};
+                this.review.pubID = pubID;
+                this.review.customerName = 'Márió Bersenszki';
+                this.review.customerId = 69;
+                
+                opinionsArrayByPubID.push(this.review);
+                
+                reviewService.postReview(this.review).then(function(){
+                }, function(){
+                    opinionsArrayByPubID.pop();
+                    window.alert('Sajnos nem sikerült a komment elküldése!');
+                    console.log("The review wasn't posted"); 
+                });
+                this.review = {};
             }else{
                 window.alert('Nem kommentelhetsz amíg nem lépsz be Facebookkal!');
             }
@@ -150,21 +170,24 @@ var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
     
     .controller('PubsController', ['$scope','pubService', function($scope, pubService){
         $scope.active = 0;
-        $scope.pubs = [];
         $scope.pubOpinions = [];
+        $scope.pubMap = {}; 
         
         
         $scope.setActiveId = function(idToSet){
-            if($scope.active === idToSet){
+            if($scope.active === idToSet && $scope.active !== 0){
                 $scope.active = 0;
+                $scope.setMapCenter(true);
             } else {
                 if ($scope.pubOpinions[idToSet]) {
                     $scope.active = idToSet;
+                    $scope.setMapCenter(false, $scope.pubMap[$scope.active].latitude, $scope.pubMap[$scope.active].longitude);
                 } else {
                     pubService.getOpinionsByPubID(idToSet).then(function(opinions){
                         $scope.pubOpinions[idToSet] = opinions.data;
                     }).then(function(){
                         $scope.active = idToSet;
+                        $scope.setMapCenter(false, $scope.pubMap[$scope.active].latitude, $scope.pubMap[$scope.active].longitude);
                     });
                 }
             }
@@ -176,9 +199,10 @@ var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
         
         
         pubService.getPubs().then(function(pubs) {
-            $scope.pubs = pubs.data;
-        });
-        
+            pubs.data.forEach(function(pub){
+                $scope.pubMap[pub.pubID] = pub;
+            });
+        });        
     }]);
     
     

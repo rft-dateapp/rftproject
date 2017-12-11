@@ -9,6 +9,9 @@ var app = angular.module('easyFacebook', ['ezfb'])
 })
 .controller('FaceCtrl', function($scope, ezfb) {
     
+
+//    $scope.apiMe = {name: 'Márió Bersenszki', id: 69};
+
     updateLoginStatus(updateApiMe);
     
     $scope.login = function () {
