@@ -121,6 +121,9 @@ header > h1 {
 .navbar li a { 
     color: #ffffff !important;
 }
+.main-nav li a:hover {
+    color: #cacaca !important;
+}
 @media(max-width: 767px) {
     .navbar li a {
         text-align: left;
@@ -216,6 +219,9 @@ header > h1 {
     min-width: 40%;
     height: inherit;
     overflow: hidden;
+    -webkit-box-shadow: 0px 0px 20px 3px rgba(122,122,122,1);
+    -moz-box-shadow: 0px 0px 20px 3px rgba(122,122,122,1);
+    box-shadow: 0px 0px 20px 3px rgba(122,122,122,1);
 }
 @media(max-width: 1100px) {
     .review-parent {
@@ -228,10 +234,8 @@ header > h1 {
     width: 105%;
     height: inherit;
     background-color: white;
-    overflow-y: auto;
+    overflow-y: scroll;
     overflow-x: hidden;
-    padding-right: 12px;
-    padding-left: 15px;
 }
 .review h3 {
     font-size: 18px;
@@ -251,17 +255,43 @@ header > h1 {
 }
 
 .pub {
-    min-height: 40px;
     width: inherit;
     border-bottom: 1px solid #cccccc;
     display: block;
-    padding: 10px 0;
-    cursor: pointer;
+    background: white;
 }
 
 .pub > div {
     min-height: 40px;
-    padding-top: 10px;
-    padding-left: 5px;
+    padding-left: 15px;
     padding-right: 13%;
+}
+
+.resize-none {
+    resize: none;
+}
+
+.pub-rating:after {
+    content: '\f005';
+    font-family: FontAwesome;
+    padding-left: 5px;
+    color: #ff9900;
+}
+
+.pub-title {
+    font-size: 16px;
+    cursor: pointer;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.pub-title:hover {
+    background-color: #3fc9d1;
+    transition: 500ms ease;
+}
+.pub-title:focus,
+.pub-title:active {
+    background: #3fc9d1;
+}
+.active-pub {
+    background-color: yellow;
 }
