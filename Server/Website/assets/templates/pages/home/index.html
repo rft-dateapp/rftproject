@@ -1,2 +1,39 @@
-<h1 class="text-center">Welcome to Pub'n'Fun</h1>
-<img class="center-img" src="https://i.imgur.com/6uWFpVP.jpg" alt="IMG Placeholder">
+<nav class="navbar navbar-front navbar-default">
+    <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">
+            <img alt="Brand" src="/assets/images/Logo.png">
+        </a>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav main-nav">
+          <li class="active"><a href="#!home">Főoldal</a></li>
+          <li><a href="#!pubs">Kocsmák</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right secondary-nav">
+            <button id="login-button" class="btn btn-primary float-right" ng-click="login()" ng-hide="loginStatus.status == 'connected'">Belépés Facebookkal</button>             
+            <button id="logout-button" class="btn btn-danger float-right" ng-click="logout()" ng-hide="!loginStatus || loginStatus.status != 'connected'">Kilépés</button>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+<header class="banner">
+    <div class="banner__overlay"></div>
+    <div class="banner__content">
+        <h1 class="text-center">Üdvözöl a Pub'n'Fun</h1>
+    </div>
+</header>
+<div class="content container">
+    <div class="row">
+        <div class="col-md-12">
+        </div>
+    </div>
+</div>

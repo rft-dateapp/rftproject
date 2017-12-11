@@ -1,11 +1,50 @@
+<nav class="navbar navbar-default">
+    <div class="container">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">
+            <img alt="Brand" src="/assets/images/LogoTrans.png">
+        </a>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav main-nav">
+          <li class="active"><a href="#!home">Főoldal</a></li>
+          <li><a href="#!pubs">Kocsmák</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right secondary-nav">
+            <button id="login-button" class="btn btn-primary float-right" ng-click="login()" ng-hide="loginStatus.status == 'connected'">Belépés Facebookkal</button>             
+            <button id="logout-button" class="btn btn-danger float-right" ng-click="logout()" ng-hide="!loginStatus || loginStatus.status != 'connected'">Kilépés</button>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
 <div class="map-review-container">
-    <div class="review float-left">
-        <div class="pub" ng-repeat="pub in pubs"><button ng-click="setActiveId(pub.pubID)">{{ pub.name }}</button>
-            <div ng-if="isActive(pub.pubID)"> 
-                <div ng-repeat="opinion in pub.customerOpinions">{{ opinion.opinion }}</div>
+    <div class="review-parent">
+        <div class="review">
+            <div class="pub" ng-repeat="pub in pubMap">
+                <div class="pub-title" ng-click="setActiveId(pub.pubID)">{{ pub.name }}<span class="float-right pub-rating"> {{ pub.customerOverallRatings | number:2}}</span></div>
+                <div ng-if="isActive(pub.pubID)">
+                    <h3 class="comment-header">Kommentek</h3>
+                    <div ng-repeat="opinion in pubOpinions[pub.pubID]">
+                    <h3>{{ opinion.customerName }}</h3>
+                    <blockquote>
+                        {{ opinion.opinion }} <span class="float-right pub-rating">{{opinion.rating}}</span>
+                    </blockquote>
+                </div>
+                <div submitreview></div>
             </div>
         </div>
     </div>
-    <div id="google-map" class="map float-right"></div>
-    <div class="clearfix"></div>
+</div>
+<pubnfunmap></pubnfunmap>
+</div>
+<div class="clearfix"></div>
 </div>
