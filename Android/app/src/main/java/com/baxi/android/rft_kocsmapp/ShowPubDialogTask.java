@@ -43,16 +43,14 @@ public class ShowPubDialogTask extends AsyncTask<String, String, String> {
 
     private Context context;
 
-    private boolean isNetworkConnected;
 
     private ArrayAdapter opinionAdapter;
 
 
-    public ShowPubDialogTask(Pub pub, Context context, boolean isNetworkConnected){
+    public ShowPubDialogTask(Pub pub, Context context){
         super();
         this.pub = pub;
         this.context = context;
-        this.isNetworkConnected = isNetworkConnected;
 
     }
 
@@ -90,7 +88,7 @@ public class ShowPubDialogTask extends AsyncTask<String, String, String> {
         addressTextView.setText(pub.getAddress());
 
         TextView ratingTextView = (TextView) dialog.findViewById(R.id.ratingTextView);
-        ratingTextView.setText("Értékelés: " + Double.toString(pub.getCustomerOverallRatings()));
+        ratingTextView.setText(String.format("Értékelés: %.2f",pub.getCustomerOverallRatings()));
 
         final double pubLatitude = pub.getLatitude();
         final double pubLongitude = pub.getLongitude();
@@ -149,10 +147,15 @@ public class ShowPubDialogTask extends AsyncTask<String, String, String> {
         rateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),
-                        "Rate button clicked", Toast.LENGTH_LONG)
-                        .show();
-                showRatingDialog(pub);
+                if(AccessToken.getCurrentAccessToken() == null){
+                    Toast.makeText(getApplicationContext(),
+                            "Jelentkezz be!", Toast.LENGTH_SHORT)
+                            .show();
+                }
+                else{
+                    showRatingDialog(pub);
+                }
+
             }
         });
 
@@ -187,12 +190,7 @@ public class ShowPubDialogTask extends AsyncTask<String, String, String> {
             @Override
             public void onClick(View view) {
                 Log.d("RateButton", "Rate Button clicked");
-                if(AccessToken.getCurrentAccessToken() == null){
-                    Toast.makeText(getApplicationContext(),
-                            "Jelentkezz be!", Toast.LENGTH_SHORT)
-                            .show();
-                }
-                else{
+
                     CustomerOpinion opinionToSend = new CustomerOpinion();
                     opinionToSend.setOpinion(opinionText.getText().toString());
                     opinionToSend.setRating(ratingBar.getRating());
@@ -203,7 +201,7 @@ public class ShowPubDialogTask extends AsyncTask<String, String, String> {
                     System.out.println(opinionToSend);
                     new PostOpinionTask(opinionToSend).execute("http://rftpubnfun.azurewebsites.net/PubnFunCore.svc/postOpinion");
                     dialog.dismiss();
-                }
+
 
             }
 

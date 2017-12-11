@@ -154,7 +154,7 @@ public class ShowPubsActivity extends AppCompatActivity implements AsyncResponse
     public void showPubDetailsDialog(Pub pub){
 
         if(isNetworkConnected()){
-            this.dialogTask = new ShowPubDialogTask(pub, this, isNetworkConnected());
+            this.dialogTask = new ShowPubDialogTask(pub, this);
             String id = Integer.toString(pub.getPubID());
             String url = "http://rftpubnfun.azurewebsites.net/PubnFunCore.svc/GetAllOpinionAboutPubByID/" + id;
             dialogTask.execute(url);
