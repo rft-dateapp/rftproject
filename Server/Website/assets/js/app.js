@@ -24,9 +24,9 @@ var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
 
 .directive('pubnfunmap', function() {
     var link = function(scope, element, attrs) {
-        var map;
-        var infoWindow;
-        var markers = [];
+        scope.map;
+        scope.infoWindow;
+        scope.markers = [];
         
         var mapOptions = {
             center: new google.maps.LatLng(47.5421887, 21.6395724),
@@ -36,8 +36,8 @@ var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
         };
         
         function initMap() {
-            if (map === void 0) {
-                map = new google.maps.Map(element[0], mapOptions);
+            if (scope.map === void 0) {
+                scope.map = new google.maps.Map(element[0], mapOptions);
             }
             
             if (navigator.geolocation) {
@@ -47,7 +47,7 @@ var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
                         lng: position.coords.longitude
                     };
                     
-                    map.setCenter(pos);
+                    scope.map.setCenter(pos);
                 }, function() {
                     handleLocationError(true);
                 });
@@ -65,7 +65,7 @@ var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
                 'Error: Your browser doesn\'t support geolocation.');
             }
             
-            scope.setMarker = function(map, position, title, content) {
+            scope.setMarker = function(map, position, title, content, pubRating) {
                 var marker;
                 var markerOptions = {
                     position: position,
@@ -75,23 +75,26 @@ var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
                 };
                 
                 marker = new google.maps.Marker(markerOptions);
-                markers.push(marker); // add marker to array
+                scope.markers.push(marker); // add marker to array
                 
                 google.maps.event.addListener(marker, 'click', function () {
+                    
                     // close window if not undefined
-                    if (infoWindow !== void 0) {
-                        infoWindow.close();
+                    if (scope.infoWindow !== void 0) {
+                        scope.infoWindow.close();
                     }
                     // create new window
                     var infoWindowOptions = {
-                        content: content
+                        content: '<h5>' + title + '<span style="float: right;">' + pubRating +  '</span></h5>' +
+                                 '<br>' + content
                     };
-                    infoWindow = new google.maps.InfoWindow(infoWindowOptions);
-                    infoWindow.open(map, marker);
+                    scope.infoWindow = new google.maps.InfoWindow(infoWindowOptions);
+                    scope.infoWindow.open(map, marker);
                 });
+
             }
             
-            scope.setMapCenter = function(clickOff, latitude, longtitude){ 
+            scope.setMapCenter = function(clickOff, latitude, longitude){ 
                 if (navigator.geolocation && clickOff) {
                     navigator.geolocation.getCurrentPosition(function(position) {
                         var pos = {
@@ -99,18 +102,17 @@ var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
                             lng: position.coords.longitude
                         };
                         
-                        map.setCenter(pos);
+                        scope.map.setCenter(pos);
                     }, function() {
                         handleLocationError(true);
                     });
                 } else {
-                    map.setCenter({lat: latitude, lng: longtitude});
+                    scope.map.setCenter({lat: latitude, lng: longitude});
                 }
                 
             }
             
-            initMap();
-            //    setMarker(map, new google.maps.LatLng(47.5421887, 21.6395724), 'Ibolya', 'cool');
+            initMap();            
         }
         
         return {
@@ -152,6 +154,13 @@ var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
                 opinionsArrayByPubID.push(this.review);
                 
                 reviewService.postReview(this.review).then(function(){
+                    var newOverallRating = 0;
+                    for(var i = 0; i < opinionsArrayByPubID.length; i++){
+                        newOverallRating += opinionsArrayByPubID[i].rating;
+                    }
+                    $scope.pubMap[pubID].customerOverallRatings = newOverallRating / opinionsArrayByPubID.length;
+                    console.log($scope.pubMap[pubID].customerOverallRatings);
+                    
                 }, function(){
                     opinionsArrayByPubID.pop();
                     window.alert('Sajnos nem sikerült a komment elküldése!');
@@ -202,7 +211,20 @@ var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
             pubs.data.forEach(function(pub){
                 $scope.pubMap[pub.pubID] = pub;
             });
-        });        
+
+            $scope.initMarkers();
+        });
+        
+        $scope.initMarkers = function(){
+            for(var pub in $scope.pubMap){
+                var pubPosition = {lat: $scope.pubMap[pub].latitude, lng: $scope.pubMap[pub].longitude};
+                    $scope.setMarker($scope.map, pubPosition, $scope.pubMap[pub].name, 
+                                     $scope.pubMap[pub].address, $scope.pubMap[pub].customerOverallRatings);
+                }
+        };
+
+ 
+        
     }]);
     
     

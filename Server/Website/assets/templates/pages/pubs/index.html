@@ -30,7 +30,7 @@
     <div class="review-parent">
         <div class="review float-left">
             <div class="pub" ng-repeat="pub in pubMap">
-                <div class="pub-title" ng-click="setActiveId(pub.pubID)">{{ pub.name }}<span class="float-right"> {{ pub.customerOverallRatings }}</span></div>
+                <div class="pub-title" ng-click="setActiveId(pub.pubID)">{{ pub.name }}<span class="float-right"> {{ pub.customerOverallRatings | number:2}}</span></div>
                 <div ng-if="isActive(pub.pubID)">                   
                     <h3 class="comment-header">Kommentek</h3>
                     <div ng-repeat="opinion in pubOpinions[pub.pubID]">
