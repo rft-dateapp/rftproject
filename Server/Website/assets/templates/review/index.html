@@ -1,5 +1,5 @@
 <div ng-controller="ReviewController as reviews">
-    <div ng-show="reviews.review.opinion && apiMe">
+    <div ng-show="reviews.review.opinion && apiMe && reviews.review.rating">
         <h3>{{ apiMe.name }}</h3>    
         <blockquote>
             {{ reviews.review.opinion }} <span class="float-right pub-rating">{{reviews.review.rating}}</span>

@@ -85,7 +85,7 @@ var app = angular.module('pubNFun', ['easyFacebook','ngRoute'])
                     }
                     // create new window
                     var infoWindowOptions = {
-                        content: '<h5>' + title + '<span class="map-rating" style="float: right;">' + pubRating +  '</span></h5>' +
+                        content: '<h5>' + title + '<span class="map-rating float-right">' + Math.round(pubRating*100)/100 +  '</span></h5>' +
                                  '<br>' + content
                     };
                     scope.infoWindow = new google.maps.InfoWindow(infoWindowOptions);
