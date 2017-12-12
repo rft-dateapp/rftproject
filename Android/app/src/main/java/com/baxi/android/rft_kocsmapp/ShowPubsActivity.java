@@ -82,9 +82,6 @@ public class ShowPubsActivity extends AppCompatActivity implements AsyncResponse
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Toast.makeText(getApplicationContext(),
-                        "Click ListItem Number " + position, Toast.LENGTH_LONG)
-                        .show();
                 Pub pubToHandle = pubList.get(position);
                 System.out.println(pubToHandle);
                 showPubDetailsDialog(pubToHandle);
@@ -187,9 +184,6 @@ public class ShowPubsActivity extends AppCompatActivity implements AsyncResponse
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view,
                                         int position, long id) {
-                    Toast.makeText(getApplicationContext(),
-                            "Click ListItem Number " + position, Toast.LENGTH_LONG)
-                            .show();
                     CustomerOpinion opinionToHandle = opinions.get(position);
                     System.out.println(opinionToHandle);
                 }
@@ -199,10 +193,6 @@ public class ShowPubsActivity extends AppCompatActivity implements AsyncResponse
             showOnMapButton.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getApplicationContext(),
-                            "Showing on map", Toast.LENGTH_LONG)
-                            .show();
-
                     Intent intent = new Intent(ShowPubsActivity.this, ShowPubOnMapActivity.class);
                     intent.putExtra("pubLatitude", pubLatitude);
                     intent.putExtra("pubLongitude", pubLongitude);

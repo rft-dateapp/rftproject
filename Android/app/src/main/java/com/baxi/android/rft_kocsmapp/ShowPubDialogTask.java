@@ -118,9 +118,6 @@ public class ShowPubDialogTask extends AsyncTask<String, String, String> {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Toast.makeText(getApplicationContext(),
-                        "Click ListItem Number " + position, Toast.LENGTH_LONG)
-                        .show();
                 CustomerOpinion opinionToHandle = opinions.get(position);
                 System.out.println(opinionToHandle);
             }
@@ -130,10 +127,6 @@ public class ShowPubDialogTask extends AsyncTask<String, String, String> {
         showOnMapButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),
-                        "Showing on map", Toast.LENGTH_LONG)
-                        .show();
-
                 Intent intent = new Intent(ShowPubDialogTask.this.context, ShowPubOnMapActivity.class);
                 intent.putExtra("pubLatitude", pubLatitude);
                 intent.putExtra("pubLongitude", pubLongitude);
