@@ -15,19 +15,19 @@ namespace Pub_n_Fun
 
         [OperationContract]
         [WebInvoke(Method = "GET", UriTemplate = "/GetPubByID/{pubID}", ResponseFormat = WebMessageFormat.Json)]
-        EDM.Pubs GetPubByID(string pubID);
+        EDM.tmp.Pubs GetPubByID(string pubID);
 
         [OperationContract]
         [WebInvoke(Method = "GET", UriTemplate = "/GetAllPub", ResponseFormat = WebMessageFormat.Json)]
-        List<EDM.Pubs> GetAllPubList();
+        List<EDM.tmp.Pubs> GetAllPubList();
 
         [OperationContract]
         [WebInvoke(Method = "POST", UriTemplate = "/PostPub", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        void AddPub(EDM.Pubs PubToBeAdded);
+        void AddPub(EDM.tmp.Pubs PubToBeAdded);
 
         [OperationContract]
         [WebInvoke(Method = "PUT", UriTemplate = "/PutPub", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        void UpdatePub(EDM.Pubs PubToBeUpdated);
+        void UpdatePub(EDM.tmp.Pubs PubToBeUpdated);
 
         [OperationContract]
         [WebInvoke(Method = "DELETE", UriTemplate = "/DeletePubByID/{pubID}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]
@@ -35,19 +35,19 @@ namespace Pub_n_Fun
 
         [OperationContract]
         [WebInvoke(Method = "GET", UriTemplate = "/GetOpinionByID/{opinionID}", ResponseFormat = WebMessageFormat.Json)]
-        customerOpinions GetCustomerOpinion(string opinionID);
+        EDM.tmp.customerOpinions GetCustomerOpinion(string opinionID);
 
         [OperationContract]
         [WebInvoke(Method = "GET", UriTemplate = "/GetAllOpinionAboutPubByID/{pubID}", ResponseFormat = WebMessageFormat.Json)]
-        List<EDM.customerOpinions> GetAllOpinionListAboutPubByID(string pubID);
+        List<EDM.tmp.customerOpinions> GetAllOpinionListAboutPubByID(string pubID);
 
         [OperationContract]
         [WebInvoke(Method = "POST", UriTemplate = "/PostOpinion", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        void AddOpinion(customerOpinions OpinionToBeAdded);
+        void AddOpinion(EDM.tmp.customerOpinions OpinionToBeAdded);
 
         [OperationContract]
         [WebInvoke(Method = "PUT", UriTemplate = "/PutOpinion", ResponseFormat = WebMessageFormat.Json, RequestFormat = WebMessageFormat.Json)]
-        void UpdateOpinion(customerOpinions OpinionToBeUpdated);
+        void UpdateOpinion(EDM.tmp.customerOpinions OpinionToBeUpdated);
 
         [OperationContract]
         [WebInvoke(Method = "DELETE", UriTemplate = "/DeleteOpinionByID/{opinionID}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json)]

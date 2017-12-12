@@ -18,7 +18,6 @@ namespace Pub_n_Fun.EDM
         public RftKocsmaAppDBEntities()
             : base("name=RftKocsmaAppDBEntities")
         {
-            Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

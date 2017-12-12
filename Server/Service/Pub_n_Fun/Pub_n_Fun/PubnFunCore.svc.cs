@@ -7,16 +7,17 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 using Pub_n_Fun.Models;
-using Pub_n_Fun.EDM;
+using Pub_n_Fun.EDM.tmp;
+using Pub_n_Fun.Manager;
 
 namespace Pub_n_Fun
 {
     public class PubnFunCore : IPubnFunCore
     {
         private static List<Models.Pub> Pubs = new List<Models.Pub>();
-        private static List<EDM.Pubs> awe = new List<EDM.Pubs>()
+        private static List<EDM.tmp.Pubs> awe = new List<EDM.tmp.Pubs>()
                         {
-                            new EDM.Pubs()
+                            new EDM.tmp.Pubs()
                             {
                                 pubID = 1,
                                 address = "Debrecen, Zákány utca 26.",
@@ -39,7 +40,7 @@ namespace Pub_n_Fun
                                 latitude = (float)47.545093,
                                 longitude = (float)21.640869,
                             },
-                            new EDM.Pubs()
+                            new EDM.tmp.Pubs()
                             {
                                 pubID = 2,
                                 address = "isten háta mögöttön is túl",
@@ -47,7 +48,7 @@ namespace Pub_n_Fun
                                 latitude = 0,
                                 longitude = 0,
                             },
-                            new EDM.Pubs()
+                            new EDM.tmp.Pubs()
                             {
                                 pubID = 3,
                                 address = "szomszéd",
@@ -57,6 +58,8 @@ namespace Pub_n_Fun
                             },
                         };
 
+        
+
         public void AddOpinion(customerOpinions OpinionToBeAdded)
         {
             try
@@ -64,6 +67,10 @@ namespace Pub_n_Fun
                 using (var db = new RftKocsmaAppDBEntities())
                 {
                     db.customerOpinions.Add(OpinionToBeAdded);
+
+                    db.Pubs.Find(OpinionToBeAdded.pubID).customerOverallRatings = PubManager.CalculateOverAllRatingPub(OpinionToBeAdded.pubID.ToString());
+
+                    db.SaveChanges();
                 }
             }
             catch (Exception e)
@@ -73,14 +80,13 @@ namespace Pub_n_Fun
             }
         }
 
-        public void AddPub(EDM.Pubs PubToBeAdded)
+        public void AddPub(EDM.tmp.Pubs PubToBeAdded)
         {
             try
-            {
-                //Pubs.Add(PubToBeAdded);
-
-                using (var db = new EDM.RftKocsmaAppDBEntities())
+            {                
+                using (var db = new RftKocsmaAppDBEntities())
                 {
+
                     db.Pubs.Add(PubToBeAdded);
 
                     db.SaveChanges();
@@ -99,6 +105,9 @@ namespace Pub_n_Fun
                 using (var db = new RftKocsmaAppDBEntities())
                 {
                     db.customerOpinions.Remove(db.customerOpinions.Find(opinionID));
+
+                    db.Pubs.Find(db.customerOpinions.Find(opinionID).pubID).customerOverallRatings = PubManager.CalculateOverAllRatingPub(db.customerOpinions.Find(opinionID).pubID.ToString());
+                    
                     db.SaveChanges();
                 }
             }
@@ -116,6 +125,7 @@ namespace Pub_n_Fun
                 using (var db = new RftKocsmaAppDBEntities())
                 {
                     db.Pubs.Remove(db.Pubs.Find(pubID));
+
                     db.SaveChanges();
                 }
             }
@@ -126,7 +136,7 @@ namespace Pub_n_Fun
             }
         }
 
-        public List<EDM.customerOpinions> GetAllOpinionListAboutPubByID(string pubID)
+        public List<EDM.tmp.customerOpinions> GetAllOpinionListAboutPubByID(string pubID)
         {
             try
             {
@@ -134,7 +144,8 @@ namespace Pub_n_Fun
                 {
                     using (var db = new RftKocsmaAppDBEntities())
                     {
-                        return db.customerOpinions.Where(p => p.pubID == tmp).ToList(); ;
+                        return db.customerOpinions.Where(p => p.pubID == tmp).ToList();
+                        //eturn db.customerOpinions.SqlQuery("SELECT * FROM dbo.customerOpinions WHERE pubID=" + tmp + ";").ToList();
                     }
                 }
                 else
@@ -149,18 +160,30 @@ namespace Pub_n_Fun
             }
         }
 
-        public List<EDM.Pubs> GetAllPubList()
+        public List<EDM.tmp.Pubs> GetAllPubList()
         {
             try
-            {                
+            {
+                List<Pubs> Pubs = new List<EDM.tmp.Pubs>();
+
                 using (var db = new RftKocsmaAppDBEntities())
-                {                    
-                    return db.Pubs.ToList();
+                {                  
+                    Pubs = db.Pubs.ToList();
+
+                    foreach (EDM.tmp.Pubs pub in Pubs)
+                    {
+                        pub.customerOverallRatings = PubManager.CalculateOverAllRatingPub(pub.pubID.ToString());
+                    }
+
+                    db.SaveChanges();
+
+                    Pubs = db.Pubs.ToList();
+
+                    return Pubs;
                 }
             }
             catch (Exception e)
             {
-
                 throw e;
             }
             
@@ -177,12 +200,11 @@ namespace Pub_n_Fun
             }
             catch (Exception e)
             {
-
                 throw e;
             }
         }
 
-        public EDM.Pubs GetPubByID(string pubID)
+        public EDM.tmp.Pubs GetPubByID(string pubID)
         {
             try
             {
@@ -193,7 +215,6 @@ namespace Pub_n_Fun
             }
             catch (Exception e)
             {
-
                 throw e;
             }
         }
@@ -222,7 +243,7 @@ namespace Pub_n_Fun
             throw new NotImplementedException();
         }
 
-        public void UpdatePub(EDM.Pubs PubToBeUpdated)
+        public void UpdatePub(EDM.tmp.Pubs PubToBeUpdated)
         {
             throw new NotImplementedException();
         }
