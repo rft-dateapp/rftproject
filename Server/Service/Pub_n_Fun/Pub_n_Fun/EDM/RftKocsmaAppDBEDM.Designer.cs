@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Nealder\Desktop\RFT\rftproject\Server\Service\Pub_n_Fun\Pub_n_Fun\EDM\RftKocsmaAppDBEDM.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Nealder\Desktop\rft project root\rftproject\Server\Service\Pub_n_Fun\Pub_n_Fun\EDM\RftKocsmaAppDBEDM.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
