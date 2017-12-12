@@ -14,6 +14,16 @@ public class CustomerOpinion implements Serializable{
 
     private String customerName;
 
+    private String customerID;
+
+    public String getCustomerID() {
+        return customerID;
+    }
+
+    public void setCustomerID(String customerID) {
+        this.customerID = customerID;
+    }
+
     private int customerOpinionID;
 
     private int pubID;
@@ -60,5 +70,15 @@ public class CustomerOpinion implements Serializable{
 
     public void setPubID(int pubID) {
         this.pubID = pubID;
+    }
+
+    @Override
+    public String toString() {
+        return "CustomerOpinion{" +
+                "opinion='" + opinion + '\'' +
+                ", rating=" + rating +
+                ", customerName='" + customerName + '\'' +
+                ", customerID='" + customerID + '\'' +
+                '}';
     }
 }

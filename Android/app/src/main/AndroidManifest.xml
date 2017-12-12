@@ -35,7 +35,7 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".ShowPubsAcivity"
+            android:name=".ShowPubsActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"/>
         <activity

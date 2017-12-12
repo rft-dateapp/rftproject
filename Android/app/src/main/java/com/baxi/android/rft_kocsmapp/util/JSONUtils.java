@@ -38,7 +38,7 @@ public class JSONUtils {
             pub.setName(name);
             pub.setCustomerOverallRatings(customerOverallRating);
             pub.setPubID(pubID);
-            pub.setCustomerCustomerOpinions(opinions);
+            pub.setCustomerOpinions(opinions);
             pub.setLatitude(latitude);
             pub.setLongitude(longitude);
 
@@ -66,10 +66,13 @@ public class JSONUtils {
                 opinionID = object.getInt("opinionID");
             }
 
+            String customerID = object.getString("customerId");
+
             customerOpinion.setCustomerName(customerName);
             customerOpinion.setOpinion(opinion);
             customerOpinion.setCustomerOpinionID(opinionID);
             customerOpinion.setRating(rating);
+            customerOpinion.setCustomerID(customerID);
             //customerOpinion.setPubID(pubID);
 
         } catch (JSONException e) {

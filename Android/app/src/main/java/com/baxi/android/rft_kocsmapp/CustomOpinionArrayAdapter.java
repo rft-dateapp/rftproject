@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.baxi.android.rft_kocsmapp.model.CustomerOpinion;
-import com.baxi.android.rft_kocsmapp.model.Pub;
 
 import java.util.List;
 
@@ -34,14 +33,14 @@ public class CustomOpinionArrayAdapter extends ArrayAdapter<CustomerOpinion> {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.custom_list_row_opinions, parent, false);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.row_icon);
-        TextView firstLine = (TextView) rowView.findViewById(R.id.customerNameTextView);
+        TextView firstLine = (TextView) rowView.findViewById(R.id.pubNameTextView);
         TextView secondLine = (TextView) rowView.findViewById(R.id.opinionTextView);
         TextView rating = (TextView) rowView.findViewById(R.id.ratingTextView);
 
         imageView.setImageResource(R.mipmap.ic_launcher);
         firstLine.setText(values.get(position).getCustomerName());
         secondLine.setText(values.get(position).getOpinion());
-        rating.setText(Double.toString(values.get(position).getRating()));
+        rating.setText("Értékelés: " + Double.toString(values.get(position).getRating()));
 
 
         return rowView;
