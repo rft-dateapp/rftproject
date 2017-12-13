@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Pub_n_Fun;
-using Pub_n_Fun.EDM.tmp;
+//using Pub_n_Fun.EDM.tmp;
+using Pub_n_Fun.EDM.qwe;
 
 namespace Pub_n_Fun.Manager
 {
@@ -19,7 +20,7 @@ namespace Pub_n_Fun.Manager
 
                 if (int.TryParse(pubID, out int tmp))
                 {
-                    using (var db = new RftKocsmaAppDBEntities())
+                    using (var db = new rftkocsmadbEntities3())
                     {                        
                         ops = db.customerOpinions.SqlQuery("SELECT * FROM dbo.customerOpinions WHERE pubID=" + tmp + ";").ToList();
 
